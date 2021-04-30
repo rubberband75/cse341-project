@@ -1,4 +1,14 @@
 <div class="book">
-    <p><b><%= book.title %></b></p>
-    <p><%= book.summary %></p>
+    <div class="book-content">
+
+        <div class="book-cover" style="background-image: url('<%= book.coverImage %>');">
+            <h4> <%= book.title %></h4>
+            <p> <%= book.author %> </p>
+        </div>
+
+        <div class="book-back">
+            <p> <%= book.summary %> </p>
+        </div>
+        
+    </div>
 </div>

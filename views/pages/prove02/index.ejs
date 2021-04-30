@@ -9,15 +9,85 @@
                 height: 100%;
             }
 
+            .book-shelf {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+
             .book {
-                padding: 1rem;
-                margin: 1rem;
-                display: inline-block;
-                width: 200px;
-                height: 275px;
-                background-color: darkgrey;
-                border: solid 1px grey;
-                border-radius: 3px;
+                margin: 2rem;
+                width: 220px;
+                height: 300px;
+                flex-shrink: 0;
+                cursor: pointer;
+                background-color: transparent;
+                perspective: 750px;
+            }
+
+            .book-content {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                box-shadow: #333 5px 5px 10px -4px;
+
+                transform-style: preserve-3d;
+                transition: all ease-in-out 400ms;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .book:hover .book-content {
+                transform: rotate3d(0, 1, 0, -180deg);
+                box-shadow: #333 -5px 5px 10px -4px;
+            }
+
+            .book-cover,
+            .book-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+
+                border-radius: 5px;
+
+                word-wrap: break-word;
+                overflow-y: auto;
+            }
+
+            .book-cover {
+                text-align: center;
+                color: black;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+
+            .book-cover h4 {
+                font-size: 2.5em;
+                padding: 2rem 0;
+                text-shadow: 0 0 5px white;
+                background-color: #fffd;
+                margin-top: 2rem;
+                font-weight: bold;
+            }
+
+            .book-cover p {
+                font-size: 1.5em;
+                padding: 1rem 0;
+                text-shadow: 0 0 5px white;
+                background-color: #fffd;
+            }
+
+            .book-back {
+                transform: rotateY(180deg);
+                padding: 1.5rem;
             }
         </style>
 </head>
@@ -41,36 +111,54 @@
             </div>
 
             <div class="row" style="height: 100%;">
+
+                <!-- Add-Book From -->
                 <div class="col-md-3 input-column">
                     <h3>Add Book</h3>
                     <form class="" action="/prove02/add-book" method="POST">
 
                         <div class="form-group">
-                            <label for="titleInput">Title</label>
-                            <input type="text" class="form-control" id="titleInput" placeholder="Title" name="title">
+                            <label for="titleInput">Title *</label>
+                            <input type="text" class="form-control" id="titleInput" placeholder="Title (Required)"
+                                name="title" required>
                         </div>
                         <div class="form-group">
-                            <label for="summaryInput">Summary</label>
-                            <textarea type="textarea" class="form-control" id="summaryInput" placeholder="Summary"
-                                name="summary"></textarea>
+                            <label for="summaryInput">Summary *</label>
+                            <textarea type="textarea" class="form-control" id="summaryInput"
+                                placeholder="Summary (Required)" name="summary" required rows="8"></textarea>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="authorInput">Author</label>
+                            <input type="text" class="form-control" id="authorInput" placeholder="Author" name="author">
+                        </div>
+                        <div class="form-group">
+                            <label for="coverImageInput">Cover Image URL</label>
+                            <input type="text" class="form-control" id="coverImageInput" placeholder="Cover Image URL"
+                                name="coverImage">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-default">Save</button>
                         </div>
                     </form>
                 </div>
-                <div class="col-md-9">
-                    <h3>Saved Books</h3>
-                    <hr>
-                    <% books.forEach(book=> { %>
-                        <% include book.ejs %>
-                            <% }) %>
 
+                <!-- Book List -->
+                <div class="col-md-9">
+                    <span style="font-weight: lighter; font-style: italic; font-size: 1.2em; color: grey;">(Hover to View Summary)</span> 
+                    <div class="book-shelf">
+
+                        <% if(books.lengh===0) { %>
+                            <h4><i>Your Book Shelf Is Empty</i></h4>
+                        <% } else { %>
+                            <!-- Loop through and display each book -->
+                            <% books.forEach(book=> { %>
+                                <% include ./book.ejs %>
+                            <% }) %>
+                        <% } %>
+                    </div>
                 </div>
             </div>
-
-
-
         </div>
 </body>
 
