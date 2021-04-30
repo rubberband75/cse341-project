@@ -32,10 +32,17 @@ router.get('/', (req, res, next) => {
     });
 });
 
-// Process POST request to save book
+// POST request to save book
 router.post('/add-book', async (req, res, next) => {
     let { title, author, summary, coverImage } = req.body;
     books.push({ title, author, summary, coverImage })
+    res.redirect('/prove02/')
+});
+
+// POST request to remove book at given index
+router.post('/remove-book', async (req, res, next) => {
+    let { index } = req.body;
+    books.splice(index, 1)
     res.redirect('/prove02/')
 });
 

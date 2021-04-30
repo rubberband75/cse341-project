@@ -29,7 +29,7 @@
                 <!-- Add-Book From -->
                 <div class="col-md-3 input-column">
                     <h3>Add Book</h3>
-                    <form class="" action="/prove02/add-book" method="POST">
+                    <form action="/prove02/add-book" method="POST">
 
                         <div class="form-group">
                             <label for="titleInput">Title *</label>
@@ -52,7 +52,7 @@
                                 name="coverImage">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -64,7 +64,7 @@
                         
                         <!-- Loop through and display each book -->
                         <% if(books.length > 0) { %>
-                            <% books.forEach(book=> { %> 
+                            <% books.forEach( (book, i) => { %> 
                                 <%- include book.ejs %> 
                             <% }) %>
 
