@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <% include ../includes/header.ejs %>
 </head>
 
 <body>
   <% include ../includes/nav.ejs %>
-<div class="jumbotron text-center">
-  <div class="container">
-    <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 03</p>
-  </div>
-</div>
-<div class="container">
-  
-</div>
+    <div class="jumbotron text-center">
+      <div class="container">
+        <h1>
+          <%= title %>
+        </h1>
+        <p>This is the placeholder for Team Activity 03</p>
+      </div>
+    </div>
+    <div class="container">
+
+      <div class="item-list">
+
+        <% items.forEach(item=> { %>
+          <div style="display: block; outline: solid black 1px; padding: 1rem;">
+            <p>
+              <%= item.name %>
+            </p>
+            <p>
+              <%= item.price %>
+            </p>
+            <p>
+              <%= item.description %>
+            </p>
+            <img width="250" src="<%= item.imageUrl %>">
+
+            <ul>
+              <% item.tags.forEach(tag=> { %>
+                <li><%= tag %></li>
+              <% }); %>
+            </ul>
+
+          </div>
+          <% }); %>
+
+      </div>
+
+    </div>
 
 
 </body>
+
 </html>
