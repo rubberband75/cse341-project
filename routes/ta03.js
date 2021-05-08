@@ -6,13 +6,28 @@ const Item = require('../models/ta03/Item')
 
 router.get('/', (req, res, next) => {
 
-    Item.getAllItems(items => {
-        res.render('pages/ta03', {
-            title: 'Team Activity 03',
-            path: '/ta03',
-            items: items
-        });
-    })
+    if (req.query.tag) {
+        Item.getItemsByTag(req.query.tag, items => {
+            res.render('pages/ta03', {
+                title: 'Team Activity 03',
+                path: '/ta03',
+                items: items,
+                tag: req.query.tag
+            });
+        })
+
+    } else {
+        Item.getAllItems(items => {
+            res.render('pages/ta03', {
+                title: 'Team Activity 03',
+                path: '/ta03',
+                items: items,
+                tag: null
+            });
+        })
+    }
+
+
 });
 
 
