@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../partials/header.ejs %>
+        <style>
+            .masked {
+                -webkit-text-security: disc;
+            }
+        </style>
+</head>
+
+<body>
+    <% include ../../partials/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8" style="padding: 0 15px">
+                    <h2>
+                        Welcome <%= user.firstName %>!</h2>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <!-- username -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Username</div>
+                        <div class="panel-body">
+                            <%= user.username %>
+                        </div>
+                    </div>
+                    <!-- name -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Name</div>
+                        <div class="panel-body">
+                            <span>
+                                <%= user.firstName %>
+                                    <%= user.lastName %>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- email -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Email</div>
+                        <div class="panel-body">
+                            <%= user.email %>
+                        </div>
+                    </div>
+                    <!-- email -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Password</div>
+                        <div class="panel-body">
+                            <span id="password" class="masked">
+                                <%= user.password %>
+                            </span>
+                            <button id="show-password-btn" type="button" class="btn btn-link">Show</button>
+                        </div>
+                    </div>
+                    <!-- email -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Email Preferences</div>
+                        <div class="panel-body">
+                            <%= !!user.marketingEmails ? 'All the emails!' : 'No Contact' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <hr />
+                    <a href="/prove/01">
+                        <button type="button" class="btn btn-primary">Add Another User</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let showPassword = false;
+            $("#show-password-btn").click(() => {
+                showPassword = !showPassword;
+                $("#password").toggleClass('masked');
+                $("#show-password-btn").html(showPassword ? 'Hide' : 'Show')
+            })
+        </script>
+
+</body>
+
+</html>

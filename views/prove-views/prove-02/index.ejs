@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../partials/header.ejs %>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/prove-02.css" />
+</head>
+
+<body>
+    <% include ../../partials/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+            </div>
+        </div>
+        <div class="container">
+
+            <div class="row">
+                <h2>
+                    Online Library
+                </h2>
+                <hr>
+            </div>
+
+            <div class="row" style="height: 100%;">
+
+                <!-- Add-Book From -->
+                <div class="col-md-3 input-column">
+                    <h3>Add Book</h3>
+                    <form action="/prove/02/add-book" method="POST">
+
+                        <div class="form-group">
+                            <label for="titleInput">Title *</label>
+                            <input type="text" class="form-control" id="titleInput" placeholder="Title (Required)"
+                                name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="summaryInput">Summary *</label>
+                            <textarea type="textarea" class="form-control" id="summaryInput"
+                                placeholder="Summary (Required)" name="summary" required rows="8"></textarea>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="authorInput">Author</label>
+                            <input type="text" class="form-control" id="authorInput" placeholder="Author" name="author">
+                        </div>
+                        <div class="form-group">
+                            <label for="coverImageInput">Cover Image URL</label>
+                            <input type="text" class="form-control" id="coverImageInput" placeholder="Cover Image URL"
+                                name="coverImage">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Book List -->
+                <div class="col-md-9">
+                    <span style="font-weight: lighter; font-style: italic; font-size: 1.2em; color: grey;">(Hover to View Summary)</span> 
+                    <div class="book-shelf">
+                        
+                        <!-- Loop through and display each book -->
+                        <% if(books.length > 0) { %>
+                            <% books.forEach( (book, i) => { %> 
+                                <%- include book.ejs %> 
+                            <% }) %>
+
+                        <% } else { %>
+                            <h4><i>Your Book Shelf Is Empty</i></h4>
+
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

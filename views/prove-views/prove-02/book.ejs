@@ -1,0 +1,21 @@
+<div class="book">
+    <div class="book-content">
+
+        <div class="book-cover" style="background-image: url('<%= book.coverImage %>');">
+            <h4> <%= book.title %> </h4>
+            <p> <%= book.author %> </p>
+        </div>
+
+        <div class="book-back">
+            <p> <%= book.summary %> </p>
+
+            <form action="/prove/02/remove-book" method="POST">
+                <input id="bookIndex" name="index" type="hidden" value="<%= i %>">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Remove Book
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
