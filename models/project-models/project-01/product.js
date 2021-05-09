@@ -70,8 +70,17 @@ module.exports = class Product {
 
     static findById(id, cb) {
         getProductsFromFile(products => {
-            const product = products.find(p => p.id === id);
+            const product = products.find(p => p.id == id);
             cb(product);
+        });
+    }
+
+    static findByTag(tag, cb) {
+        getProductsFromFile(products => {
+            const taggedProducts = products.filter(product => {
+                return product.tags.includes(tag)
+            })
+            cb(taggedProducts);
         });
     }
 };

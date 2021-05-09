@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../../../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../../../partials/nav.ejs %>
+    <% include ../partials/project01nav.ejs %>
+
+
+
+      <div class="jumbotron text-center">
+        <div class="container">
+          <h1>
+            <%= title %>
+          </h1>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <a type="button" class="btn btn-primary btn-lg" href="/project/01/admin/add-product">Add Product</a>
+        </div>
+        <hr>
+
+        <ul class="list-group">
+          <% products.forEach(product=> { %>
+          <li class="list-group-item">
+            <div class="media">
+              <div class="media-left">
+                <a href="/project/01/admin/edit-product/<%= product.id %>">
+                  <img width="64" src="<%= product.imageUrl %>" alt="<%= product.title %>" title="<%= product.title %>">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading"><%= product.title %></h4>
+                <%= product.description %>
+              </div>
+
+              <div class="media-right">
+                <a type="button" class="btn btn-primary btn-md" href="/project/01/admin/edit-product/<%= product.id %>">Edit</a>
+              </div>
+            </div>
+          </li>
+
+          <% }); %>
+        </ul>
+
+
+        <!-- <div class="product-list">
+          <% products.forEach(product=> { %>
+            <div class="col-sm-6 col-md-4" style="flex-shrink: 0;">
+              <div class="thumbnail">
+                <a href="/project/01/products/<%= product.id %>">
+                  <img src="<%= product.imageUrl %>" alt="<%= product.title %>" title="<%= product.title %>">
+                </a>
+                <div class="caption">
+                  <h3>
+                    <%= product.title %>
+                  </h3>
+                  <h4>
+                    <%= product.price %>
+                  </h4>
+                  <p>
+                    <%= product.description %>
+                  </p>
+
+                  <p>
+                    <% product.tags.forEach(tag=> { %>
+                      <a href="?tag=<%= tag %>" class="btn btn-default btn-sm" role="button"
+                        style="border-radius: 2em;">
+                        <%= tag %>
+                      </a>
+                      <% }); %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+        </div> -->
+
+      </div>
+
+</body>
+
+</html>

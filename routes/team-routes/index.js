@@ -6,7 +6,7 @@ router.use('/03', require('./team-03-routes'));
 router.use('/04', require('./team-04-routes'));
 
 router.get('/', (req, res, next) => {
-    res.render('index', { title: 'Welcome to my CSE341 repo', path: '/team' });
+    res.render('index', { title: 'Team Assignments', path: '/team' });
 })
 
 module.exports = router;

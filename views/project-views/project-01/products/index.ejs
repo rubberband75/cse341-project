@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../../../partials/header.ejs %>
+</head>
+
+<body>
+  <% include ../../../partials/nav.ejs %>
+    <% include ../partials/project01nav.ejs %>
+
+
+
+      <div class="jumbotron text-center">
+        <div class="container">
+          <h1>
+            <%= title %>
+          </h1>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <form action="/project/01/products">
+          <div class="row">
+            <div class="input-group  input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">#</span>
+              <input type="text" class="form-control" placeholder="Search for product tags..." name="tag"
+                value="<%= tag ? tag : ''%>">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Search</button>
+              </span>
+            </div>
+          </div>
+        </form>
+        <hr>
+
+
+        <div class="product-list" style="display: flex; flex-wrap: wrap;">
+          <% products.forEach(product=> { %>
+            <div class="col-sm-6 col-md-4" style="flex-shrink: 0;">
+              <div class="thumbnail">
+                <a href="/project/01/products/<%= product.id %>">
+                  <img src="<%= product.imageUrl %>" alt="<%= product.title %>" title="<%= product.title %>">
+                </a>
+                <div class="caption">
+                  <h3>
+                    <%= product.title %>
+                  </h3>
+                  <h4>
+                    <%= product.price %>
+                  </h4>
+                  <p>
+                    <%= product.description %>
+                  </p>
+
+                  <p>
+                    <% product.tags.forEach(tag=> { %>
+                      <a href="?tag=<%= tag %>" class="btn btn-default btn-sm" role="button"
+                        style="border-radius: 2em;">
+                        <%= tag %>
+                      </a>
+                      <% }); %>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+        </div>
+      </div>
+
+</body>
+
+</html>
