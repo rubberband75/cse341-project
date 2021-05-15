@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../../partials/header.ejs %>
+</head>
+
+<body>
+    <% include ../../../partials/nav.ejs %>
+        <% include ../partials/project01nav.ejs %>
+
+            <div class="jumbotron text-center">
+                <div class="container">
+                    <h1>
+                        <%= title %>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <% if (orders.length===0) { %>
+                    <h1 class="text-center">You have no Orders</h1>
+                    <hr>
+                <% } else { %>
+
+                    <ul class="list-group">
+                        <% orders.forEach(order=> { %>
+                            <li class="list-group-item">
+                                <a href="#">
+                                    <%= order._id %>
+                                </a>
+                                <!-- <div class="media">
+                                    <div class="media-left">
+                                        <a href="/project/01/products/<%= p.productId._id %>">
+                                            <img width="100" src="<%= p.productId.imageUrl %>" alt="<%= p.title %>"
+                                                title="<%= p.productId.title %>">
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <h3 class="media-heading">
+                                            <%= p.productId.title %>
+                                        </h3>
+                                        Quantity: <%= p.quantity %>
+
+                                            <form action="/project/01/cart/delete-item" method="POST">
+                                                <input type="hidden" value="<%= p.productId.id %>" name="productId">
+                                                <button class="btn btn-link" type="submit">Remove</button>
+                                            </form>
+                                    </div>
+
+                                    <div class="media-right">
+                                        <h4 class="xmedia-heading">
+                                            $<%= p.productId.price %>
+                                        </h4>
+                                    </div>
+                                </div> -->
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+
+
+            </div>
+
+</body>
+
+</html>

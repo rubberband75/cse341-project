@@ -16,6 +16,7 @@ router.use((req, res, next) => {
 router.use('/products', require('./products'));
 router.use('/admin', require('./admin'));
 router.use('/cart', require('./cart'));
+router.use('/orders', require('./orders'));
 
 router.get('/', indexController.getIndex);
 
