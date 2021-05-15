@@ -1,23 +1,40 @@
 const Product = require('../../../models/project-models/project-01/product')
-const Cart = require('../../../models/project-models/project-01/cart')
 
 exports.getAllProducts = (req, res, next) => {
-    Cart.getCart(cart => {
-        Product.fetchAll(products => {
-            const cartProducts = [];
-            for (product of products) {
-                const cartProductData = cart.products.find(
-                    prod => prod.id == product.id
-                );
-                if (cartProductData) {
-                    cartProducts.push({ productData: product, qty: cartProductData.qty });
-                }
-            }
-            res.render('project-views/project-01/cart', {
-                title: 'Cart',
-                path: '/project/01/cart',
-                products: products,
-            });
-        });
-    });
+  req.user
+    .populate('cart.items.productId')
+    .execPopulate()
+    .then(user => {
+      let products = user.cart.items;
+      res.render('project-views/project-01/cart', {
+        title: 'Cart',
+        path: '/project/01/cart',
+        products: products,
+      });
+    })
+    .catch(err => console.error(err));
+};
+
+exports.postCart = (req, res, next) => {
+  const prodId = req.body.productId;
+  console.log("Adding To Cart: ", prodId)
+  Product.findById(prodId)
+    .then(product => {
+      return req.user.addToCart(product);
+    })
+    .then(result => {
+      res.redirect('/project/01/cart')
+    })
+    .catch(err => console.error(err))
+};
+
+exports.postCartDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  console.log("Removing From Cart: ", prodId)
+  req.user
+    .removeFromCart(prodId)
+    .then(result => {
+      res.redirect('/project/01/cart');
+    })
+    .catch(err => console.error(err));
 };

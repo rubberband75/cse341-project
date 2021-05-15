@@ -24,10 +24,10 @@
                         <% products.forEach(p => { %>
                             <li>
                                 <p>
-                                    <%= p.title %> (<%= p.qty %>)
+                                    <%= p.productId.title %> (<%= p.quantity %>)
                                 </p>
-                                <form action="/cart-delete-item" method="POST">
-                                    <input type="hidden" value="<%= p.id %>" name="productId">
+                                <form action="/project/01/cart/delete-item" method="POST">
+                                    <input type="hidden" value="<%= p.productId.id %>" name="productId">
                                     <button class="btn" type="submit">Remove</button>
                                 </form>
                             </li>

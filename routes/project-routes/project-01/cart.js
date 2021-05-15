@@ -4,4 +4,8 @@ const cartController = require('../../../controllers/project-controllers/project
 
 router.get('/', cartController.getAllProducts)
 
+router.post('/', cartController.postCart);
+
+router.post('/delete-item', cartController.postCartDeleteProduct);
+
 module.exports = router;
