@@ -30,7 +30,7 @@ const options = {
    family: 4
 };
 
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://node_client:7vTqGq3rfqvY0AXO@project-01-cluster.ocg36.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://node_client:PpXbxTbztitZrsxWoz09BC5R3he74JKo@cluster0.ckbll.mongodb.net/project01?retryWrites=true&w=majority";
 
 mongoose
   .connect(
@@ -38,7 +38,7 @@ mongoose
   )
   .then(result => {
     // This should be your user handling code implement following the course videos
-    console.log(" * Connected to MongoDB")
+    console.log(" * Connected to Database: ", result.connections[0].name)
     app.listen(PORT);
   })
   .catch(err => {
