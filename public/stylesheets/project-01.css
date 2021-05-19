@@ -18,3 +18,33 @@ body {
     width: 350px;
     height: 350px;
 }
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-icon::before {
+    font-size: .75rem;
+    min-width: 18px;
+    line-height: 18px;
+    border-radius: 9px;
+    background: #00bcd4 !important;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0 6px;
+    transition: all 0.2s;
+    position: absolute;
+    top: 0.3rem;
+    right: -0.7rem;
+    z-index: 1;
+    content: attr(count);
+    font-family: sans-serif;
+}
+
+.navbar-icon {
+    font-size: 1.75em !important;
+}
