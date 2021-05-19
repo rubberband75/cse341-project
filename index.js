@@ -4,6 +4,8 @@ const cors = require('cors')
 const path = require('path');
 const mongoose = require('mongoose');
 
+require('dotenv').config({ path: __dirname + '/.env' })
+
 const PORT = process.env.PORT || 5000 // So we can run on heroku || (OR) localhost:5000
 
 const app = express();
@@ -31,7 +33,7 @@ const options = {
   family: 4
 };
 
-const MONGODB_URL = process.env.MONGODB_URL || "mongodb+srv://node_client:PpXbxTbztitZrsxWoz09BC5R3he74JKo@cluster0.ckbll.mongodb.net/project01?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL;
 
 mongoose
   .connect(
@@ -55,8 +57,7 @@ mongoose
       }
     )
 
-    app.listen(PORT);
-    console.log(`Running on http://localhost:${PORT}`)
+    app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
   })
   .catch(err => {
     console.log(err);
