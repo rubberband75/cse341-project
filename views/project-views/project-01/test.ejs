@@ -2,11 +2,29 @@
 <html lang="en">
 
 <head>
-  <% include ./partials/head.ejs %>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>Starter Template - Materialize</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="/stylesheets/project-01.css">
 </head>
 
 <body>
-  <% include ./partials/nav.ejs %>
+  <nav class="" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/project/01/home#" class="brand-logo">PrintCubed</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#login">Login</a></li>
+        <li><a href="#sign-up" class="btn cyan waves-effect waves-light">Sign Up</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
 
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -18,6 +36,8 @@
       <div class="row center">
         <a href="/project/01/shop" id="shop-button" class="btn-large waves-effect waves-light orange">Shop Now</a>
       </div>
+      <br><br>
+
     </div>
   </div>
 
@@ -45,9 +65,48 @@
     </div>
   </div>
 
-  <% include ./partials/footer.ejs %>
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Project 1 — E-Commerce Application </h5>
+
+        </div>
+        <div class="col l2 s12">
+          <h5 class="white-text">Team</h5>
+          <ul>
+            <li><a class="white-text" href="/team/01">Team Activity 01</a></li>
+            <li><a class="white-text" href="/team/02">Team Activity 02</a></li>
+            <li><a class="white-text" href="/team/03">Team Activity 03</a></li>
+            <li><a class="white-text" href="/team/04">Team Activity 04</a></li>
+          </ul>
+        </div>
+        <div class="col l2 s12">
+          <h5 class="white-text">Prove</h5>
+          <ul>
+            <li><a class="white-text" href="/prove/01">Prove 01</a></li>
+            <li><a class="white-text" href="/prove/02">Prove 02</a></li>
+          </ul>
+        </div>
+        <div class="col l2 s12">
+          <h5 class="white-text">Projects</h5>
+          <ul>
+            <li><a class="white-text" href="/project/01">Project 01</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      M.AutoInit();
+
+
       var homeCarousel = document.querySelector('#home-carousel');
       setInterval(function () {
         M.Carousel.getInstance(homeCarousel).next()

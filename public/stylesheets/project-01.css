@@ -1,0 +1,20 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.page-footer {
+    margin-top: auto;
+}
+
+.carousel .carousel-item {
+    width: 350px;
+    height: 350px;
+}
