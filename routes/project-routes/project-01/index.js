@@ -19,5 +19,6 @@ router.use('/cart', require('./cart'));
 router.use('/orders', require('./orders'));
 
 router.get('/', indexController.getIndex);
+router.get('/home', indexController.getHome);
 
 module.exports = router;
