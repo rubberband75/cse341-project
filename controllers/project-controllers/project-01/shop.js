@@ -48,7 +48,6 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
     const prodId = req.body.productId;
-    console.log("Adding To Cart: ", prodId)
     Product.findById(prodId)
         .then(product => {
             return req.user.addToCart(product);
@@ -61,7 +60,6 @@ exports.postCart = (req, res, next) => {
 
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    console.log("Removing From Cart: ", prodId)
     req.user
         .removeFromCart(prodId)
         .then(result => {

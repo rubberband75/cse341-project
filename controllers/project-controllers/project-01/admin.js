@@ -23,7 +23,6 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    console.log({ user: req.user })
     const product = new Product({
         userId: req.user,
         title: title,
