@@ -8,20 +8,30 @@
 <body>
   <% include ./partials/nav.ejs %>
 
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">3D Printed Gifts</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">We print and ship from a curated collection of 3D models.</h5>
-      </div>
-      <div class="row center">
-        <a href="/project/01/shop" id="shop-button" class="btn-large waves-effect waves-light orange">Shop Now</a>
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">3D Printed Gifts</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">We print and ship from a curated collection of 3D models.</h5>
+        </div>
+        <div class="row center">
+          <a href="/project/01/shop" id="shop-button" class="btn-large waves-effect waves-light orange">Shop Now</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container">
+    <div class="container">
+      <div class="section">
+        <div class="carousel" id="home-carousel">
+          <% products.forEach(product=> { %>
+            <a class="carousel-item" href="/project/01/product/<%= product._id %>"><img src="<%= product.imageUrl %>"></a>
+            <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="container">
     <div class="section">
       <div class="carousel" id="home-carousel">
         <a class="carousel-item" href="#fox"><img src="/images/project01/600/fox.jpg"></a>
@@ -43,17 +53,17 @@
         <a class="carousel-item" href="#trex"><img src="/images/project01/600/trex.jpg"></a>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <% include ./partials/footer.ejs %>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var homeCarousel = document.querySelector('#home-carousel');
-      setInterval(function () {
-        M.Carousel.getInstance(homeCarousel).next()
-      }, 2750)
-    });
-  </script>
+    <% include ./partials/footer.ejs %>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          var homeCarousel = document.querySelector('#home-carousel');
+          setInterval(function () {
+            M.Carousel.getInstance(homeCarousel).next()
+          }, 2750)
+        });
+      </script>
 </body>
 
 </html>
