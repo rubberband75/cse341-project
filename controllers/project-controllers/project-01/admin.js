@@ -1,6 +1,6 @@
 const Product = require('../../../models/project-models/project-01/product')
 
-exports.getAllProducts = (req, res, next) => {
+exports.getAdminDashboard = (req, res, next) => {
     Product.find().then(products => {
         res.render('project-views/project-01/admin', {
             title: 'Admin',

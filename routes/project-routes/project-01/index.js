@@ -13,14 +13,12 @@ router.use((req, res, next) => {
         .catch(err => console.error(err));
 });
 
-router.use('/shop', require('./products'));
+router.use(require('./auth'));
+router.use(require('./shop'));
 
-router.use('/products', require('./products'));
 router.use('/admin', require('./admin'));
-router.use('/cart', require('./cart'));
-router.use('/orders', require('./orders'));
+router.use('/account', require('./account'));
 
 router.get('/', indexController.getIndex);
-router.get('/legacy', indexController.getLegacy);
 
 module.exports = router;

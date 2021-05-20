@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const adminController = require('../../../controllers/project-controllers/project-01/admin')
 
-router.get('/', adminController.getAllProducts)
+router.get('/', adminController.getAdminDashboard)
 
 router.get('/add-product', adminController.getAddProduct)
 router.post('/add-product', adminController.postAddProduct)

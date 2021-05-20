@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./partials/head.ejs %>
+</head>
+
+<body>
+    <% include ./partials/nav.ejs %>
+
+        <div class="container">
+            <h2 class="orange-text"><%= title %></h2>
+            <div class="divider"></div>
+
+            <pre><%= JSON.stringify(product, null, 2) %></pre>
+
+            <form action="/project/01/cart/" method="POST">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <button type="submit"
+                    class="btn-floating btn-large waves-effect waves-light red"><i
+                        class="material-icons">add_shopping_cart</i></button>
+            </form>
+            
+        </div>
+
+        <% include ./partials/footer.ejs %>
+            <script>
+            </script>
+</body>
+
+</html>
