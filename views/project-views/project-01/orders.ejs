@@ -14,67 +14,60 @@
             </h2>
             <div class="divider"></div>
 
-            <!-- <pre><%= JSON.stringify(orders, null, 2) %></pre> -->
-
-
             <% if (orders.length===0) { %>
-                <h2 class="text-center">You have no Orders</h2>
-                <hr>
+                <h4 class="text-center grey-text">You have no Orders</h4>
                 <% } else { %>
 
-                    <% orders.forEach(order=> { %>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">
-                                    Order on <%= new Date().toDateString() %>
-                                        <span class="pull-right" style="font-size: 1rem">ORDER # <%= order._id %>
-                                        </span>
-                                </h3>
+                    <% orders.reverse().forEach(order=> { %>
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="grey-text">Order ID: <%= order._id %></span>
+                                <span class="card-title">Order on <%= order.date.toDateString() %></span>
+                                <br>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Qty</th>
+                                            <th>Item</th>
+                                            <th style="text-align:right">Unit Price</th>
+                                            <th style="text-align:right">Amount</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% order.products.forEach(orderProduct=> { %>
+                                            <tr>
+                                                <td>
+                                                    <%= orderProduct.quantity %>
+                                                </td>
+                                                <td><a href="/project/01/product/<%= orderProduct.productData._id %>">
+                                                        <%= orderProduct.productData.title %>
+                                                    </a></td>
+                                                <td style="text-align:right">$<%= orderProduct.productData.price %>
+                                                </td>
+                                                <td style="text-align:right">$<%= orderProduct.productData.price *
+                                                        orderProduct.quantity%>
+                                                </td>
+                                            </tr>
+                                            <% }) %>
+                                    </tbody>
+                                </table>
+
+
                             </div>
-
-                            <div class="panel-body">
-
-                                <% order.products.forEach(product=> { %>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a href="/project/01/products/<%= product.productData._id %>">
-                                                <img width="100" src="<%= product.productData.imageUrl %>"
-                                                    alt="<%= product.productData.title %>"
-                                                    title="<%= product.productData.title %>">
-                                            </a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h3 class="media-heading">
-                                                <%= product.productData.title %>
-                                            </h3>
-                                            Quantity: <%= product.quantity %>
-                                        </div>
-
-                                        <div class="media-right">
-                                            <h4 class="xmedia-heading">
-                                                $<%= (product.quantity * product.productData.price) %>
-                                            </h4>
-                                        </div>
-                                    </div>
-                                    <% }) %>
-
-
-                            </div>
-                            <div class="panel-footer">
-                                <div>
+                            <div class="card-action">
+                                <div style="font-size: 1.2em;">
                                     &nbsp;
-                                    <span class="pull-right">
-                                        Order Total: $ <%= order.products.reduce((total, p)=> {
-                                            return total + (p.quantity * p.productData.price)
-                                            }, 0).toFixed(2) %>
+                                    <span style="float: right;">
+                                        Total: <b>$<%= order.products.reduce((total, p)=> {
+                                                return total + (p.quantity * p.productData.price)
+                                                }, 0).toFixed(2) %></b>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <% }) %>
-                            <hr>
-                            <% } %>
-
+                        <% }) } %>
         </div>
 
         <% include ./partials/footer.ejs %>
