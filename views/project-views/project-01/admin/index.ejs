@@ -14,38 +14,63 @@
             </h2>
             <div class="divider"></div>
 
-            <div class="row">
-                <a type="button" class="btn btn-primary btn-lg" href="/project/01/admin/add-product">Add Product</a>
+
+            <div class="section">
+                <a type="button" class="btn btn-large cyan" href="/project/01/admin/add-product">Add Product</a>
             </div>
-            <hr>
+            <div class="divider"></div>
 
-            <ul class="list-group">
-                <% products.forEach(product=> { %>
-                    <li class="list-group-item">
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="/project/01/admin/edit-product/<%= product.id %>">
-                                    <img width="64" src="<%= product.imageUrl %>" alt="<%= product.title %>"
-                                        title="<%= product.title %>">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">
-                                    <%= product.title %>
-                                </h4>
-                                <%= product.description %>
-                            </div>
+            <% products.forEach(product=> { %>
+                <div class="section">
+                    <div class="row valign-wrapper">
+                        <div class="col s1">
+                            <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="responsive-img"
+                                style="max-height: 128px;" />
+                        </div>
+                        <div class="col s2">
+                            <span style="font-size: 1.25em;">
+                                <%= product.title %>
+                            </span>
+                        </div>
+                        <div class="col s1">$<%= product.price %>
+                        </div>
+                        <div class="col s6 truncate">
+                            <%= product.description %>
+                        </div>
+                        <div class="col s1 right-align">
+                            <a href="/project/01/admin/edit-product/<%= product.id %>" class="btn cyan">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </div>
+                        <div class="col s1">
+                            <a href="#del-modal-<%= product.id %>" class="btn red lighten-1 modal-trigger">
+                                <i class="material-icons">delete</i>
+                            </a>
 
-                            <div class="media-right">
-                                <a type="button" class="btn btn-primary btn-md"
-                                    href="/project/01/admin/edit-product/<%= product.id %>">Edit</a>
+                            <!-- Modal Structure -->
+                            <div id="del-modal-<%= product.id %>" class="modal">
+                                <div class="modal-content">
+                                    <h4>Confirm Delete</h4>
+                                    <p>Are you sure you want to delete <b>
+                                            <%= product.title %>
+                                        </b> ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="#!" class="modal-close waves-effect waves-cyan btn-flat">Cancel</a>
+
+                                    <form action="/project/01/admin/delete-product/<%= product.id %>" method="POST"
+                                        style="display: inline-block;">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button class="btn red lighten-1" type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </li>
+                    </div>
 
-                    <% }); %>
-            </ul>
-
+                    <div class="divider"></div>
+                </div>
+                <% }); %>
         </div>
 
         <% include ../partials/footer.ejs %>
