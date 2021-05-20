@@ -3,17 +3,19 @@
     <a id="logo-container" href="/project/01" class="brand-logo">PrintShop<sup>3</sup> </a>
     <ul class="right hide-on-med-and-down">
 
-      <li>
+      <li class="<%= path === '/project/01/shop' ? 'active' : ''%>">
         <a href="/project/01/shop" class="flow-text">Shop</a>
       </li>
       <li style="padding: 0 1em;">|</li>
 
       <% if (!isAuthenticated) { %>
-        <li><a href="/project/01/login" class="flow-text">Login</a></li>
-        <li><a href="/project/01/signup" class="white-text btn cyan waves-effect waves-light">Sign Up</a></li>
+        <li class="<%= path === '/project/01/login' ? 'active' : ''%>"><a href="/project/01/login"
+            class="flow-text">Login</a></li>
+        <li class="<%= path === '/project/01/signup' ? 'active' : ''%>"><a href="/project/01/signup"
+            class="white-text btn cyan waves-effect waves-light">Sign Up</a></li>
 
         <% } else { %>
-          <li>
+          <li class="<%= path === '/project/01/cart' ? 'active' : ''%>">
             <a href="/project/01/cart">
               <i class="large material-icons cart-icon navbar-icon" <% if (cartCount) {%> count="<%=cartCount%>" <% } %>
                     >shopping_cart </i>
@@ -37,26 +39,26 @@
           </div>
         </nav>
       </li>
-      <li>
+      <li class="<%= path === '/project/01/shop' ? 'active' : ''%>">
         <a href="/project/01/shop"><i class="material-icons left">shopping_basket</i>Shop</a>
       </li>
       <li class="divider"></li>
 
       <% if (isAuthenticated) { %>
-        <li>
+        <li class="<%= path === '/project/01/cart' ? 'active' : ''%>">
           <a href="/project/01/cart" class="cart-button">
             <i class="material-icons left cart-icon" <% if (cartCount) {%> count="<%=cartCount%>" <% } %>
                   >shopping_cart</i>Cart
           </a>
         </li>
-        <li>
+        <li class="<%= path === '/project/01/orders' ? 'active' : ''%>">
           <a href="/project/01/orders"><i class="material-icons left">receipt</i>Orders</a>
         </li>
         <li class="divider"></li>
-        <li>
+        <li class="<%= path === '/project/01/admin' ? 'active' : ''%>">
           <a href="/project/01/admin"><i class="material-icons left">settings</i>Admin</a>
         </li>
-        <li>
+        <li class="<%= path === '/project/01/account' ? 'active' : ''%>">
           <a href="/project/01/account"><i class="material-icons left">account_circle</i>Account</a>
         </li>
         <li class="divider"></li>
@@ -70,10 +72,10 @@
         </li>
 
         <% } else { %>
-          <li>
+          <li class="<%= path === '/project/01/login' ? 'active' : ''%>">
             <a href="/project/01/login">Login</a>
           </li>
-          <li>
+          <li class="<%= path === '/project/01/signup' ? 'active' : ''%>">
             <a href="/project/01/signup" class="btn cyan waves-effect waves-light">Sign Up</a>
           </li>
           <% } %>
@@ -84,14 +86,14 @@
 
 <!-- Account Icon Menu -->
 <ul id="account-dropdown" class="dropdown-content">
-  <li>
+  <li class="<%= path === '/project/01/admin' ? 'active' : ''%>">
     <a href="/project/01/admin" class="cyan-text"><i class="material-icons left">settings</i>Admin</a>
   </li>
   <li class="divider"></li>
-  <li class="active">
+  <li class="<%= path === '/project/01/orders' ? 'active' : ''%>">
     <a href="/project/01/orders" class="cyan-text"><i class="material-icons left">receipt</i>Orders</a>
   </li>
-  <li>
+  <li class="<%= path === '/project/01/account' ? 'active' : ''%>">
     <a href="/project/01/account" class="cyan-text"><i class="material-icons left">account_circle</i>Account</a>
   </li>
   <li class="divider"></li>
