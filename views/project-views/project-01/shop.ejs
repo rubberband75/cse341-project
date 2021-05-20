@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ./partials/head.ejs %>
+</head>
+
+<body>
+    <% include ./partials/nav.ejs %>
+
+        <div class="container">
+            <h2 class="orange-text">Shop</h2>
+
+            <div class="divider"></div>
+
+            <div class="row">
+                <% (products.concat(products).concat(products)).forEach((product, i)=> { %>
+                    <div class="col s12 m6 l4">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="https://picsum.photos/600?<%= i %>">
+                                <!-- <span class="card-title">
+                                    <%= product.title %>
+                                </span> -->
+                                <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i
+                                        class="material-icons">add_shopping_cart</i></a>
+                            </div>
+                            <div class="card-content" style="padding: 12px 24px;">
+                                <h5>
+                                    <%= product.title %>
+                                </h5>
+                                <p>
+                                    <%= product.description %>
+                                </p>
+                            </div>
+                            <div class="card-action">
+                                <h5 style="text-align: right; margin: 0;"> $<%= product.price %>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+
+        <% include ./partials/footer.ejs %>
+            <script>
+            </script>
+</body>
+
+</html>

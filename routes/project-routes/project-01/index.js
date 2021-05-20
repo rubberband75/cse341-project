@@ -13,6 +13,8 @@ router.use((req, res, next) => {
         .catch(err => console.error(err));
 });
 
+router.use('/shop', require('./products'));
+
 router.use('/products', require('./products'));
 router.use('/admin', require('./admin'));
 router.use('/cart', require('./cart'));

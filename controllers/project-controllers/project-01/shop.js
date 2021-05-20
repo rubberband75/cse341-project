@@ -5,9 +5,9 @@ exports.getAllProducts = (req, res, next) => {
     if (req.query.tag) findParams = { tags: req.query.tag }
     Product.find(findParams)
         .then(products => {
-            res.render('project-views/project-01/shop', {
-                title: 'Shop',
-                path: '/project/01/shop',
+            res.render('project-views/project-01/products', {
+                title: 'Products',
+                path: '/project/01/products',
                 products: products,
                 tag: req.query.tag
             });
