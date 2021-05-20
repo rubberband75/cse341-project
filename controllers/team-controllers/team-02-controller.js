@@ -12,8 +12,6 @@ exports.getIndex = (req, res, next) => {
 exports.addUser = (req, res, next) => {
     const username = req.body.username;
 
-    console.log(username)
-
     errorMessage = null;
     let userExists = (users.indexOf(username) != -1);
 

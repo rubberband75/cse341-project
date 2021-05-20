@@ -55,7 +55,7 @@ exports.postLogin = (req, res, next) => {
                         req.session.isLoggedIn = true;
                         req.session.user = user;
                         return req.session.save(err => {
-                            console.log(err);
+                            if (err) console.log(err);
                             res.redirect('/project/01/');
                         });
                     } else {
