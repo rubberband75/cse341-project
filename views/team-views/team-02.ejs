@@ -35,6 +35,7 @@
 
           <!-- Add User Form -->
           <form action="/team/02/addUser" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <labe for="username">Add User</label>
               <input type="text" name="username" id="username" placeholder="Username" />
               <button type="submit">Save</button>
@@ -44,6 +45,7 @@
 
           <!-- Remove User Form -->
           <form action="/team/02/removeUser" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <labe for="username-remove">Remove User</label>
               <input type="text" name="username" id="username-remove" placeholder="Username" />
               <button type="submit">Delete</button>

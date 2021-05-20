@@ -1,14 +1,14 @@
-// const bcrypt = require('bcryptjs');
-// const nodemailer = require('nodemailer')
-// const sendgridTransport = require('nodemailer-sendgrid-transport')
+const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
 
-// const User = require('../models/user');
+const User = require('../../../models/project-models/project-01/user');
 
-// const transporter = nodemailer.createTransport(sendgridTransport({
-//   auth: {
-//     api_key: process.env.SENDGRID_API_KEY
-//   }
-// }));
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth: {
+    api_key: process.env.SENDGRID_API_KEY
+  }
+}));
 
 exports.getLogin = (req, res, next) => {
     //   let message = req.flash('error');
@@ -17,6 +17,7 @@ exports.getLogin = (req, res, next) => {
     //   } else {
     //     message = null;
     //   }
+
     res.render('project-views/project-01/auth/login', {
         title: 'Login',
         path: '/project/01/login',

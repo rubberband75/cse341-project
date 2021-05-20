@@ -5,6 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
+const flash = require('connect-flash');
 
 require('dotenv').config({ path: __dirname + '/.env' })
 
@@ -15,24 +17,45 @@ const store = new MongoDBStore({
   uri: process.env.MONGODB_URL,
   collection: 'sessions'
 });
+const csrfProtection = csrf();
 
 const routes = require('./routes')
 const User = require('./models/project-models/project-01/user');
 
 app.use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .use(bodyParser({ extended: false })) // For parsing the body of a POST
-  .use(
-    session({
-      secret: 'my secret',
-      resave: false,
-      saveUninitialized: false,
-      store: store
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+app.use(bodyParser({ extended: false })) // For parsing the body of a POST
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: store
+  })
+)
+app.use(csrfProtection)
+app.use(flash())
+
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user._id)
+    .then(user => {
+      req.user = user;
+      next();
     })
-  )
-  .use('/', routes);
-// .listen(PORT, () => console.log(`Listening on ${PORT}`));
+    .catch(err => console.log(err));
+});
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
+app.use('/', routes);
 
 const corsOptions = {
   origin: "https://nameless-reaches-04389.herokuapp.com/",

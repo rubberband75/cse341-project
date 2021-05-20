@@ -28,6 +28,7 @@
 
 
             <form class="form-horizontal" action="/prove/01/new-user" method="POST">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                 <div class="form-group">
                     <label for="usernameInput" class="col-sm-2 control-label">Username</label>

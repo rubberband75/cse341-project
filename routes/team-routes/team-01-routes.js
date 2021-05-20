@@ -38,6 +38,7 @@ router.get('/activities', (req, res, next) => {
     res.write('</ul>');
     // Form for "./add-activity".
     res.write('<form action="./add-activity" method="POST">');
+    res.write(`<input type="hidden" name="_csrf" value="${req.csrfToken()}">`);
     res.write('<input type="text" name="newActivity">');
     res.write('<button type="submit">Submit</button>');
     res.write('</form>');
@@ -101,6 +102,7 @@ router.get("/stretch-2", (req, res, next) => {
     res.write('<body>');
     // Form for "./stretch-2 POST request".
     res.write('<form action="./stretch-2" method="POST">');
+    res.write(`<input type="hidden" name="_csrf" value="${req.csrfToken()}">`);
     res.write('<input type="text" name="message">');
     res.write('<button type="submit">Submit</button>');
     res.write('</form>');
@@ -135,6 +137,7 @@ router.get("/stretch-3", (req, res, next) => {
     res.write('<body>');
     // Form for "./stretch-2 POST request".
     res.write('<form action="./stretch-3" method="POST">');
+    res.write(`<input type="hidden" name="_csrf" value="${req.csrfToken()}">`);
     res.write('<input type="number" name="op1">+');
     res.write('<input type="number" name="op2">');
     res.write('<button type="submit">Submit</button>');

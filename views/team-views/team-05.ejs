@@ -23,6 +23,7 @@
 
 
       <form action="/team/05/change-style" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <input type="text" value="<%= style %>" name="style">
         <input type="submit">
       </form>

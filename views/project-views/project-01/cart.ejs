@@ -40,6 +40,7 @@
                                         Quantity: <%= p.quantity %>
 
                                             <form action="/project/01/cart/delete-item" method="POST">
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                                 <input type="hidden" value="<%= p.productId.id %>" name="productId">
                                                 <button class="btn btn-link" type="submit">Remove</button>
                                             </form>
@@ -60,6 +61,7 @@
 
 
                     <form action="/project/01/orders/create" method="POST" class="pull-right">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button class="btn btn-primary" type="submit">Place Order</button>
                     </form>
 

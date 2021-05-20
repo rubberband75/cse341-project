@@ -18,6 +18,7 @@
 
       <form class="product-form"
         action="/project/01/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="form-group">
           <label for="title">Title</label>
           <input class="form-control" type="text" name="title" id="title"
@@ -51,6 +52,7 @@
 
       <% if (editing) { %>
         <form action="/project/01/admin/delete-product/<%= product.id %>" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <button class="btn btn-danger" type="submit">Delete Product</button>
         </form>
         <% } %>
