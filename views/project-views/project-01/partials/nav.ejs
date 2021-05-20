@@ -9,21 +9,22 @@
       <li style="padding: 0 1em;">|</li>
 
       <% if (!isAuthenticated) { %>
-      <li><a href="/project/01/login" class="flow-text">Login</a></li>
-      <li><a href="/project/01/signup" class="white-text btn cyan waves-effect waves-light">Sign Up</a></li>
+        <li><a href="/project/01/login" class="flow-text">Login</a></li>
+        <li><a href="/project/01/signup" class="white-text btn cyan waves-effect waves-light">Sign Up</a></li>
 
-      <% } else { %>
-      <li>
-        <a href="/project/01/cart">
-          <i class="large material-icons cart-icon navbar-icon" count="2">shopping_cart </i>
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-trigger no-autoinit" data-target="account-dropdown" id="account-dropdown-trigger">
-          <i class="material-icons navbar-icon">account_circle</i>
-        </a>
-      </li>
-      <% } %>
+        <% } else { %>
+          <li>
+            <a href="/project/01/cart">
+              <i class="large material-icons cart-icon navbar-icon" <% if (cartCount) {%> count="<%=cartCount%>" <% } %>
+                    >shopping_cart </i>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-trigger no-autoinit" data-target="account-dropdown" id="account-dropdown-trigger">
+              <i class="material-icons navbar-icon">account_circle</i>
+            </a>
+          </li>
+          <% } %>
 
     </ul>
 
@@ -42,36 +43,37 @@
       <li class="divider"></li>
 
       <% if (isAuthenticated) { %>
-      <li>
-        <a href="/project/01/cart" class="cart-button">
-          <i class="material-icons left cart-icon" count="1">shopping_cart</i>Cart
-        </a>
-      </li>
-      <li>
-        <a href="/project/01/orders"><i class="material-icons left">receipt</i>Orders</a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="/project/01/admin"><i class="material-icons left">settings</i>Admin</a>
-      </li>
-      <li>
-        <a href="/project/01/account"><i class="material-icons left">account_circle</i>Account</a>
-      </li>
-      <li>
-        <form action="/project/01/logout" method="post">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <button type="submit" class="btn red waves-effect waves-light">Logout</button>
-        </form>
-      </li>
-      
-      <% } else { %>
-      <li>
-        <a href="/project/01/login">Login</a>
-      </li>
-      <li>
-        <a href="/project/01/signup" class="btn cyan waves-effect waves-light">Sign Up</a>
-      </li>
-      <% } %>
+        <li>
+          <a href="/project/01/cart" class="cart-button">
+            <i class="material-icons left cart-icon" <% if (cartCount) {%> count="<%=cartCount%>" <% } %>
+                  >shopping_cart</i>Cart
+          </a>
+        </li>
+        <li>
+          <a href="/project/01/orders"><i class="material-icons left">receipt</i>Orders</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="/project/01/admin"><i class="material-icons left">settings</i>Admin</a>
+        </li>
+        <li>
+          <a href="/project/01/account"><i class="material-icons left">account_circle</i>Account</a>
+        </li>
+        <li>
+          <form action="/project/01/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn red waves-effect waves-light">Logout</button>
+          </form>
+        </li>
+
+        <% } else { %>
+          <li>
+            <a href="/project/01/login">Login</a>
+          </li>
+          <li>
+            <a href="/project/01/signup" class="btn cyan waves-effect waves-light">Sign Up</a>
+          </li>
+          <% } %>
     </ul>
     <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
