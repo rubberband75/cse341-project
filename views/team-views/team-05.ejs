@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <% include ../partials/header.ejs %>
 </head>
 
 <body>
   <% include ../partials/nav.ejs %>
-<div class="jumbotron text-center">
-  <div class="container">
-    <h1><%= title %></h1>
-    <p>This is the placeholder for Team Activity 05</p>
-  </div>
-</div>
-<div class="container">
-  
-</div>
+    <div class="jumbotron text-center">
+      <div class="container">
+        <h1>
+          <%= title %>
+        </h1>
+        <p>This is the placeholder for Team Activity 05</p>
+      </div>
+    </div>
+    <div class="container" style="background-color: <%= style %>">
+      <p>Counter: <%= counter %>
+      </p>
+      <p>Style: <%= style %>
+      </p>
+
+
+      <form action="/team/05/change-style" method="POST">
+        <input type="text" value="<%= style %>" name="style">
+        <input type="submit">
+      </form>
+    </div>
 
 
 </body>
+
 </html>
