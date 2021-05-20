@@ -18,51 +18,54 @@
 
 
             <% if (products.length===0) { %>
-                <h1 class="text-center">Your Cart Is Empty</h1>
-                <hr>
+                <h4 class="text-center grey-text">Your Cart Is Empty</h4>
                 <% } else { %>
 
                     <ul class="list-group">
                         <% products.forEach(p=> {
                             if (p.productId) { %>
-                            <li class="list-group-item">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="/project/01/products/<%= p.productId._id %>">
-                                            <img width="100" src="<%= p.productId.imageUrl %>" alt="<%= p.title %>"
-                                                title="<%= p.productId.title %>">
-                                        </a>
+                            <div class="card horizontal">
+                                <div class="card-image">
+                                    <a href="/project/01/product/<%= p.productId._id %>">
+                                        <img src="<%= p.productId.imageUrl %>" height="190">
+                                    </a>
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <p class="card-title"
+                                            style="display: flex; flex-flow: row wrap; justify-content: space-between;">
+                                            <span>
+                                                <%= p.productId.title %>
+                                            </span>
+                                            <span>
+                                                $<%= p.productId.price %>
+                                            </span>
+                                        </p>
+                                        <p>Quantity: <%= p.quantity %>
+                                        </p>
                                     </div>
-                                    <div class="media-body">
-                                        <h3 class="media-heading">
-                                            <%= p.productId.title %>
-                                        </h3>
-                                        Quantity: <%= p.quantity %>
-
-                                            <form action="/project/01/cart/delete-item" method="POST">
-                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                                <input type="hidden" value="<%= p.productId.id %>" name="productId">
-                                                <button class="btn btn-link" type="submit">Remove</button>
-                                            </form>
-                                    </div>
-
-                                    <div class="media-right">
-                                        <h4 class="xmedia-heading">
-                                            $<%= p.productId.price %>
-                                        </h4>
+                                    <div class="card-action">
+                                        <form action="/project/01/cart/delete-item" method="POST">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <input type="hidden" value="<%= p.productId.id %>" name="productId">
+                                            <button class="btn-flat waves-effect waves-red red-text"
+                                                type="submit">Remove</button>
+                                        </form>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                             <% } }) %>
                     </ul>
 
 
-                    <hr>
+
+                    <div class="divider"></div>
+                    <br>
 
 
-                    <form action="/project/01/orders/create" method="POST" class="pull-right">
+                    <form action="/project/01/orders/create" method="POST" style="float: right;">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <button class="btn btn-primary" type="submit">Place Order</button>
+                        <button class="btn btn-large cyan" type="submit">Place Order</button>
                     </form>
 
                     <% } %>
