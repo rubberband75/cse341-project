@@ -20,7 +20,6 @@ const store = new MongoDBStore({
 const csrfProtection = csrf();
 
 const routes = require('./routes')
-const User = require('./models/project-models/project-01/user');
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
@@ -36,18 +35,6 @@ app.use(
 )
 app.use(csrfProtection)
 app.use(flash())
-
-app.use((req, res, next) => {
-  if (!req.session.user) {
-    return next();
-  }
-  User.findById(req.session.user._id)
-    .then(user => {
-      req.user = user;
-      next();
-    })
-    .catch(err => console.log(err));
-});
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -79,23 +66,9 @@ mongoose
   )
   .then(result => {
     console.log(" * Connected to Database: ", result.connections[0].name)
-
-    User.findOne().then(
-      user => {
-        if (!user) {
-          const user = new User({
-            name: 'Chandler Childs',
-            email: 'rubberband75@gmail.com',
-            cart: {
-              items: []
-            }
-          });
-          user.save();
-        }
-      }
-    )
-
-    app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
+    app.listen(PORT, () => {
+      console.log(` * Listening on http://localhost:${PORT}`)
+    });
   })
   .catch(err => {
     console.log(err);

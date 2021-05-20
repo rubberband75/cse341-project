@@ -1,16 +1,18 @@
 const router = require('express').Router();
+const indexController = require('../../../controllers/project-controllers/project-01/index')
 
 const User = require('../../../models/project-models/project-01/user');
 
-const indexController = require('../../../controllers/project-controllers/project-01/index')
-
 router.use((req, res, next) => {
-    User.findOne()
+    if (!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
         .then(user => {
             req.user = user;
             next();
         })
-        .catch(err => console.error(err));
+        .catch(err => console.log(err));
 });
 
 router.use(require('./auth'));

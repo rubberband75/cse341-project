@@ -21,6 +21,7 @@
                                 <div class="card-image">
                                     <img src="<%= product.imageUrl %>">
 
+                                    <% if (isAuthenticated) { %>
                                     <form action="/project/01/cart/" method="POST">
                                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                         <input type="hidden" name="productId" value="<%= product._id %>">
@@ -28,6 +29,7 @@
                                             class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i
                                                 class="material-icons">add_shopping_cart</i></button>
                                     </form>
+                                    <% } %>
 
                                 </div>
                                 <div class="card-content" style="padding: 12px 24px;">
