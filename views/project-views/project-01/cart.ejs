@@ -14,9 +14,6 @@
             </h2>
             <div class="divider"></div>
 
-            <!-- <pre><%= JSON.stringify(products, null, 2) %></pre> -->
-
-
             <% if (products.length===0) { %>
                 <h4 class="text-center grey-text">Your Cart Is Empty</h4>
                 <% } else { %>
@@ -60,8 +57,12 @@
 
 
                     <div class="divider"></div>
-                    <br>
 
+                    <h5 style="text-align: right; margin: 1em 0;">
+                        Total: <b>$<%= products.reduce((total, p)=> {
+                                return total + (p.quantity * p.productId.price)
+                                }, 0).toFixed(2) %></b>
+                    </h5>
 
                     <form action="/project/01/orders/create" method="POST" style="float: right;">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">

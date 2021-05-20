@@ -46,8 +46,8 @@
                                                     </a></td>
                                                 <td style="text-align:right">$<%= orderProduct.productData.price %>
                                                 </td>
-                                                <td style="text-align:right">$<%= orderProduct.productData.price *
-                                                        orderProduct.quantity%>
+                                                <td style="text-align:right">$<%= (orderProduct.productData.price *
+                                                        orderProduct.quantity).toFixed(2)%>
                                                 </td>
                                             </tr>
                                             <% }) %>

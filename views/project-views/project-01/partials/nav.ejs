@@ -59,11 +59,14 @@
         <li>
           <a href="/project/01/account"><i class="material-icons left">account_circle</i>Account</a>
         </li>
+        <li class="divider"></li>
         <li>
-          <form action="/project/01/logout" method="post">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit" class="btn red waves-effect waves-light">Logout</button>
-          </form>
+          <a style="padding-top: 1em;">
+            <form action="/project/01/logout" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="btn orange waves-effect waves-light" style="width: 100%;">Logout</button>
+            </form>
+          </a>
         </li>
 
         <% } else { %>
@@ -93,11 +96,12 @@
   </li>
   <li class="divider"></li>
   <li>
-    <form action="/project/01/logout" method="post">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <button type="submit" class="btn red waves-effect waves-light" style="margin: 0 auto;">Logout</button>
-    </form>
-    <!-- <a href="/project/01/logout" class="red-text" style="text-align: center;">Log Out</a> -->
+    <a>
+      <form action="/project/01/logout" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="btn orange waves-effect waves-light" style="width: 100%;">Logout</button>
+      </form>
+    </a>
   </li>
 </ul>
 
