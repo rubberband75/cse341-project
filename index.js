@@ -42,6 +42,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  let log = "\n * " + req.method + " " + req.url + ' [' + (new Date()).toLocaleString() + '] (' + req.hostname + ')';
+  console.log(log);
+  next();
+})
+
 app.use('/', routes);
 
 const corsOptions = {
