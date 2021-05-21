@@ -91,7 +91,6 @@ exports.postDeleteProduct = (req, res, next) => {
 exports.getUploadImage = (req, res, next) => {
     Image.find()
         .then(images => {
-            console.log({ images })
             res.render('project-views/project-01/admin/upload-image', {
                 title: 'Upload Image',
                 path: '/project/01/admin/upload-image',
@@ -104,15 +103,17 @@ exports.getUploadImage = (req, res, next) => {
 exports.postUploadImage = (req, res, next) => {
     console.log({ file: req.file })
 
-    const image = new Image({
-        name: req.body.name,
-        desc: req.body.desc,
-        img: {
-            data: req.file.buffer,
-            contentType: req.file.mimetype
-        }
-    });
-    
+    const image = new Image({ ...req.file })
+
+    // const image = new Image({
+    //     name: req.body.name,
+    //     desc: req.body.desc,
+    //     img: {
+    //         data: req.file.buffer,
+    //         contentType: req.file.mimetype
+    //     }
+    // });
+
     console.log({ image })
 
     image

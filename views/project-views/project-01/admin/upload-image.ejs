@@ -24,22 +24,11 @@
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                         <div class="row">
-
-                            <div class="input-field col s12">
-                                <input placeholder="Name" id="name" type="text" name="name">
-                                <label for="name">Name</label>
-                            </div>
-
-                            <div class="input-field col s12">
-                                <input placeholder="Desc" id="desc" type="text" name="desc">
-                                <label for="desc">Desc</label>
-                            </div>
-
                             <div class="input-field col s12">
                                 <div class="file-field input-field">
                                     <div class="btn">
                                         <span>File</span>
-                                        <input type="file" name="image" value="" required>
+                                        <input type="file" name="image" accept="image/png, image/gif, image/jpeg" required>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text">
@@ -62,18 +51,18 @@
 
                 <div class="row">
                     <% images.forEach(function(image) { %>
-                        <div class="col s12 m2">
+                        <div class="col s12 m3">
                             <div class="card">
                                 <div class="card-image">
                                     <img
-                                        src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
+                                        src="data:image/<%=image.mimetype%>;base64,<%=image.buffer.toString('base64')%>">
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title">
-                                        <%= image.name %>
+                                        <%= image.originalname %>
                                     </span>
                                     <p>
-                                        <%= image.desc %>
+                                        <%= image.size %>
                                     </p>
                                 </div>
                             </div>
