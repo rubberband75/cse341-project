@@ -26,15 +26,14 @@
 
                 <div class="row">
                   <div class="input-field col s12 m6">
-                    <input id="title" type="text" name="title" class="validate"
-                      value="<% if (editing) { %><%= product.title %><% } %>">
+                    <input id="title" type="text" name="title" value="<% if (editing) { %><%= product.title %><% } %>">
                     <label for="title">Title</label>
                   </div>
                 </div>
 
                 <div class="row">
                   <div class="input-field col s12 m6">
-                    <input id="imageUrl" type="text" name="imageUrl" class="validate"
+                    <input id="imageUrl" type="text" name="imageUrl"
                       value="<% if (editing) { %><%= product.imageUrl %><% } %>">
                     <label for="imageUrl">imageUrl</label>
                   </div>
@@ -42,7 +41,7 @@
 
                 <div class="row">
                   <div class="input-field col s12 m6">
-                    <input id="price" type="number" step="0.01" min="0.00" name="price" class="validate"
+                    <input id="price" type="number" step="0.01" min="0.00" name="price"
                       value="<% if (editing) { %><%= product.price %><% } %>">
                     <label for="imageUrl">price</label>
                   </div>
@@ -72,8 +71,9 @@
                   <i class="material-icons left">delete</i>Delete Product
                 </button>
                 <% } %>
-                  <br>
-                  <a href="/project/01/admin" class="waves-effect waves-light btn-flat">Cancel</a>
+                  <p>
+                    <a href="/project/01/admin" class="waves-effect waves-light btn-flat orange-text">Cancel</a>
+                  </p>
             </div>
           </div>
 

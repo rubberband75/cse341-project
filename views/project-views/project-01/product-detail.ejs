@@ -13,8 +13,8 @@
             <div class="section">
                 <div class="row">
                     <div class="col s12 m5">
-                        <img class="responsive-img" src="<%= product.imageUrl %>">
-
+                        <img class="responsive-img materialboxed" src="<%= product.imageUrl %>">
+                        <br>
                         <% if (isAuthenticated) { %>
                             <form action="/project/01/cart/" method="POST">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
