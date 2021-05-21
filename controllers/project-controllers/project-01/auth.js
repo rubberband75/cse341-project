@@ -11,31 +11,18 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 }));
 
 exports.getLogin = (req, res, next) => {
-    let message = req.flash('error');
-    if (message.length > 0) {
-        message = message[0]
-    } else {
-        message = null;
-    }
-
     res.render('project-views/project-01/auth/login', {
         title: 'Login',
         path: '/project/01/login',
-        errorMessage: message
+        errorMessages: req.flash('error')
     });
 };
 
 exports.getSignup = (req, res, next) => {
-    let message = req.flash('error');
-    if (message.length > 0) {
-        message = message[0]
-    } else {
-        message = null;
-    }
     res.render('project-views/project-01/auth/signup', {
         title: 'Sign Up',
         path: '/project/01/signup',
-        errorMessage: message
+        errorMessages: req.flash('error')
     });
 };
 
@@ -78,13 +65,15 @@ exports.postSignup = (req, res, next) => {
 
     if (password !== confirmPassword) {
         req.flash('error', 'Passwords do not match.');
-        return res.redirect('/project/01/signup');
     }
 
     User.findOne({ email: email })
         .then(userDoc => {
             if (userDoc) {
                 req.flash('error', 'E-Mail already in use.');
+                return res.redirect('/project/01/signup');
+            }
+            if (password !== confirmPassword) {
                 return res.redirect('/project/01/signup');
             }
             return bcrypt

@@ -1,0 +1,12 @@
+<% if (errorMessages.length> 0) { %>
+    <div class="card-panel red lighten-4 red-text" style="padding: 1em;">
+        <%errorMessages.forEach((error, i)=> { %>
+            <b>
+                <%= error %>
+            </b>
+            <% if (i < errorMessages.length-1) { %>
+                <div class="divider red" style="margin: 1em;"> </div>
+                <% } %>
+                    <% }) %>
+    </div>
+    <% } %>
