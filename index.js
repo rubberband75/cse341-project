@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  let log = "\n * " + req.method + " " + req.url + ' [' + (new Date()).toLocaleString() + '] (' + req.hostname + ')';
+  let log = ` * ${req.method} ${req.protocol}://${req.hostname}:${process.env.PORT}${req.url} [${(new Date()).toLocaleString()}]`
   console.log(log);
   next();
 })
