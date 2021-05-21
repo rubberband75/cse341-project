@@ -4,6 +4,7 @@ exports.getImage = (req, res, next) => {
     const imageID = req.params.imageID;
     Image.findById(imageID)
         .then(image => {
+            res.set('Cache-control', 'public, max-age=31536000')
             res.contentType(image.mimetype);
             res.send(Buffer.from(image.buffer, 'binary'))
         })
