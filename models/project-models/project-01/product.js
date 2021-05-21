@@ -31,6 +31,7 @@ const productSchema = new Schema({
         ref: 'Image',
         required: false
     },
+    date: { type: Date, required: true, default: Date.now }
 })
 
 module.exports = mongoose.model('Product', productSchema)

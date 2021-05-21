@@ -31,6 +31,7 @@ const userSchema = new Schema({
         ref: 'Image',
         required: false
     },
+    date: { type: Date, required: true, default: Date.now }
 });
 
 userSchema.methods.addToCart = function (product) {
