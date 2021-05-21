@@ -92,7 +92,7 @@ exports.postSignup = (req, res, next) => {
                     return transporter.sendMail({
                         to: email,
                         from: 'PrintShop^3 <ch@ndlerchilds.net>',
-                        subject: "Welcome to PrintShop^3!",
+                        subject: "Welcome to PrintShop^3",
                         html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p>Log In Here: <a href="${url}">${url}</a></p>`
                     })
                 })
