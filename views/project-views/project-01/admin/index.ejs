@@ -17,7 +17,6 @@
 
             <div class="section">
                 <a type="button" class="btn btn-large cyan" href="/project/01/admin/add-product">Add Product</a>
-                <a type="button" class="btn btn-large cyan" href="/project/01/images/upload">Upload Image</a>
             </div>
             <div class="divider"></div>
 
@@ -26,7 +25,7 @@
                     <div class="row valign-wrapper">
                         <div class="col s1">
                             <a href="/project/01/product/<%= product.id %>">
-                                <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="responsive-img"
+                                <img src="/project/01/images/<%= product.image %>" alt="<%= product.title %>" class="responsive-img"
                                     style="max-height: 128px;" />
                             </a>
                         </div>

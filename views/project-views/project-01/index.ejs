@@ -25,7 +25,7 @@
       <div class="section">
         <div class="carousel" id="home-carousel">
           <% products.forEach(product=> { %>
-            <a class="carousel-item" href="/project/01/product/<%= product._id %>"><img src="<%= product.imageUrl %>"></a>
+            <a class="carousel-item" href="/project/01/product/<%= product._id %>"><img src="/project/01/images/<%=product.image%>"></a>
             <% }) %>
         </div>
       </div>

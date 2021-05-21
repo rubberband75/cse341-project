@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 const User = require('../../../models/project-models/project-01/user')
-const Image = require('../../../models/project-models/project-01/image');
+const Image = require('../../../models/project-models/project-01/image')
 
 
 exports.getAccountDetails = (req, res, next) => {

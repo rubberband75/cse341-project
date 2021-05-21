@@ -24,7 +24,7 @@
                             <div class="card horizontal">
                                 <div class="card-image">
                                     <a href="/project/01/product/<%= p.productId._id %>">
-                                        <img class="responsive-img" src="<%= p.productId.imageUrl %>" style="max-height: 190px;">
+                                        <img class="responsive-img" src="/project/01/images/<%=p.productId.image%>" style="max-height: 190px;">
                                     </a>
                                 </div>
                                 <div class="card-stacked">
@@ -35,7 +35,7 @@
                                                 <%= p.productId.title %>
                                             </span>
                                             <span>
-                                                $<%= p.productId.price %>
+                                                $<%= p.productId.price.toFixed(2) %>
                                             </span>
                                         </p>
                                         <p>Quantity: <%= p.quantity %>

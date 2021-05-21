@@ -16,7 +16,7 @@ const productSchema = new Schema({
     },
     imageUrl: {
         type: String,
-        required: true
+        required: false
     },
     tags: [{
         type: String
@@ -25,7 +25,12 @@ const productSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    image: {
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
+        required: false
+    },
 })
 
 module.exports = mongoose.model('Product', productSchema)
