@@ -25,7 +25,12 @@ const userSchema = new Schema({
                 quantity: { type: Number, required: true }
             }
         ]
-    }
+    },
+    profilePicture: {
+        type: Schema.Types.ObjectId,
+        ref: 'Image',
+        required: false
+    },
 });
 
 userSchema.methods.addToCart = function (product) {
