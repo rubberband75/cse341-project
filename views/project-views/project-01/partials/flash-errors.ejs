@@ -1,6 +1,6 @@
 <% if (errorMessages.length> 0) { %>
     <div class="card-panel red lighten-4 red-text" style="padding: 1em;">
-        <%errorMessages.forEach((error, i)=> { %>
+        <%errorMessages.reverse().forEach((error, i)=> { %>
             <b>
                 <%= error %>
             </b>

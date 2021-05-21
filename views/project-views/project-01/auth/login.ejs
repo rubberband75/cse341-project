@@ -8,27 +8,41 @@
 <body>
     <% include ../partials/nav.ejs %>
 
-        <div class="container">
-            <h2 class="orange-text">
-                <%= title %>
-            </h2>
-            <div class="divider"></div>
+        <div class="row valign-wrapper" style="margin: auto 0; justify-content: center;">
+            <div class="card col s12 m10 l6 xl4" style="margin: 1em;">
 
-            <% include ../partials/flash-errors.ejs %>
-
-                <form class="login-form" action="/project/01/login" method="POST">
+                <form action="/project/01/login" method="POST">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <div class="form-control">
-                        <label for="email">E-Mail</label>
-                        <input type="email" name="email" id="email">
+                    <div class="card-content" style="padding-bottom: 0;">
+                        <h4 class="orange-text" style="margin-top: 0;">
+                            <%= title %>
+                        </h4>
+                        <% include ../partials/flash-errors.ejs %>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="email" type="email" name="email">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="password" type="password" name="password">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
                     </div>
-                    <div class="form-control">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password">
+                    <div class="card-action">
+                        <button class="btn cyan" type="submit">Login</button>
+                        &nbsp;
+                        Need an account?
+                        &nbsp;
+                        <a href="/project/01/signup" class="cyan-text">Sign Up Here</a>
                     </div>
-                    <button class="btn" type="submit">Login</button>
                 </form>
 
+            </div>
         </div>
 
         <% include ../partials/footer.ejs %>

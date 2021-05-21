@@ -32,7 +32,7 @@ exports.postLogin = (req, res, next) => {
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
-                req.flash('error', 'Invalid email or password.');
+                req.flash('error', 'Invalid email or password');
                 return res.redirect('/project/01/login');
             }
             bcrypt
@@ -46,7 +46,7 @@ exports.postLogin = (req, res, next) => {
                             res.redirect('/project/01/');
                         });
                     } else {
-                        req.flash('error', 'Invalid email or password.');
+                        req.flash('error', 'Invalid email or password');
                     }
                     res.redirect('/project/01/login');
                 })
@@ -64,13 +64,13 @@ exports.postSignup = (req, res, next) => {
     const confirmPassword = req.body.confirmPassword;
 
     if (password !== confirmPassword) {
-        req.flash('error', 'Passwords do not match.');
+        req.flash('error', 'Passwords do not match');
     }
 
     User.findOne({ email: email })
         .then(userDoc => {
             if (userDoc) {
-                req.flash('error', 'E-Mail already in use.');
+                req.flash('error', 'E-Mail already in use');
                 return res.redirect('/project/01/signup');
             }
             if (password !== confirmPassword) {
