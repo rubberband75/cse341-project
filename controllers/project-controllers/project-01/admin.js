@@ -90,27 +90,6 @@ exports.postEditProduct = async (req, res, next) => {
     } finally {
         res.redirect('/project/01/admin');
     }
-
-    // Product.findById(prodId)
-    //     .then(product => {
-    //         product.title = updatedTitle;
-    //         product.title = updatedTitle;
-    //         product.price = updatedPrice;
-    //         product.imageUrl = updatedImageUrl;
-    //         product.description = updatedDesc;
-
-    //         if (req.file) {
-    //             const image = new Image({ ...req.file })
-    //             await image.save();
-    //             product.image = image;
-    //         }
-
-    //         return product.save()
-    //     })
-    //     .then(result => {
-    //         res.redirect('/project/01/admin');
-    //     })
-    //     .catch(err => console.error(err))
 };
 
 exports.postDeleteProduct = (req, res, next) => {
