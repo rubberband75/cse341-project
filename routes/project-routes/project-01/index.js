@@ -10,9 +10,10 @@ router.use(loadUser);
 router.use(require('./auth'));
 router.use(require('./shop'));
 
+router.use('/images', require('./images'));
+
 router.use('/admin', isAuth, require('./admin'));
 router.use('/account', isAuth, require('./account'));
-router.use('/images', isAuth, require('./images'));
 
 router.get('/', indexController.getIndex);
 

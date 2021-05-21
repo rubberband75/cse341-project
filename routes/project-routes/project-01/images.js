@@ -3,8 +3,10 @@ var multer = require('multer');
 
 const imagesController = require('../../../controllers/project-controllers/project-01/images')
 
-router.get('/upload', imagesController.getUploadImage)
-router.post('/upload', multer().single('image'), imagesController.postUploadImage)
+const isAuth = require('../../../middlewares/is-auth');
+
+router.get('/upload', isAuth, imagesController.getUploadImage)
+router.post('/upload', isAuth, multer().single('image'), imagesController.postUploadImage)
 
 router.get('/:imageID', imagesController.getImage)
 
