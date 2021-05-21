@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body>
+    <% include ../partials/nav.ejs %>
+
+        <div class="container">
+            <h2 class="orange-text">
+                <%= title %>
+            </h2>
+            <div class="divider"></div>
+
+
+
+            <div class="section">
+                <div class="row">
+
+                    <form class="col s12" action="/project/01/admin/upload-image?_csrf=<%=csrfToken%>" method="POST"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+                        <div class="row">
+
+                            <div class="input-field col s12">
+                                <input placeholder="Name" id="name" type="text" name="name">
+                                <label for="name">Name</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <input placeholder="Desc" id="desc" type="text" name="desc">
+                                <label for="desc">Desc</label>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" name="image" value="" required>
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn waves-effect waves-light cyan" type="submit" name="action">
+                            <i class="material-icons left">save</i>Save
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+
+            <div class="section">
+                <h2 class="oragne-text">Uploaded Images</h2>
+
+                <div class="row">
+                    <% images.forEach(function(image) { %>
+                        <div class="col s12 m2">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img
+                                        src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title">
+                                        <%= image.name %>
+                                    </span>
+                                    <p>
+                                        <%= image.desc %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+
+        </div>
+
+        <% include ../partials/footer.ejs %>
+            <script>
+            </script>
+</body>
+
+</html>
