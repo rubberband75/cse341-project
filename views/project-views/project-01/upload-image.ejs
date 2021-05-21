@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <% include ../partials/head.ejs %>
+    <% include ./partials/head.ejs %>
 </head>
 
 <body>
-    <% include ../partials/nav.ejs %>
+    <% include ./partials/nav.ejs %>
 
         <div class="container">
             <h2 class="orange-text">
@@ -19,27 +19,34 @@
             <div class="section">
                 <div class="row">
 
-                    <form class="col s12" action="/project/01/admin/upload-image?_csrf=<%=csrfToken%>" method="POST"
+                    <form class="col s12" action="/project/01/images/upload?_csrf=<%=csrfToken%>" method="POST"
                         enctype="multipart/form-data">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
                         <div class="row">
-                            <div class="input-field col s12">
+                            <div class="input-field col s10">
                                 <div class="file-field input-field">
-                                    <div class="btn">
+                                    <div class="btn orange accent-3">
                                         <span>File</span>
-                                        <input type="file" name="image" accept="image/png, image/gif, image/jpeg" required>
+                                        <input type="file" name="image" accept="image/png, image/gif, image/jpeg"
+                                            required>
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text">
                                     </div>
                                 </div>
                             </div>
+                            <div class="input-field col s2">
+                                <div class="input-field">
+                                    <button class="btn btn-large waves-effect waves-light cyan" type="submit"
+                                        name="action">
+                                        <i class="material-icons left">file_upload</i>Upload
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
-                        <button class="btn waves-effect waves-light cyan" type="submit" name="action">
-                            <i class="material-icons left">save</i>Save
-                        </button>
+
                     </form>
 
                 </div>
@@ -49,12 +56,12 @@
             <div class="section">
                 <h2 class="oragne-text">Uploaded Images</h2>
 
-                <div class="row">
+                <div class="row" style="display: flex; flex-wrap: wrap;">
                     <% images.forEach(function(image) { %>
-                        <div class="col s12 m3">
+                        <div class="col s12 m6 l4 xl3" style="margin: 0">
                             <div class="card">
                                 <div class="card-image">
-                                    <img src="/project/01/images/<%=image._id%>">
+                                    <img class="materialboxed" src="/project/01/images/<%=image._id%>">
                                 </div>
                                 <div class="card-content">
                                     <span class="card-title">
@@ -72,7 +79,7 @@
 
         </div>
 
-        <% include ../partials/footer.ejs %>
+        <% include ./partials/footer.ejs %>
             <script>
             </script>
 </body>

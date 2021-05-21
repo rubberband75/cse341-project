@@ -1,5 +1,4 @@
 const Product = require('../../../models/project-models/project-01/product')
-const Image = require('../../../models/project-models/project-01/image')
 
 exports.getAdminDashboard = (req, res, next) => {
     Product.find().then(products => {
@@ -87,39 +86,3 @@ exports.postDeleteProduct = (req, res, next) => {
         })
         .catch(err => console.error(err));
 };
-
-exports.getUploadImage = (req, res, next) => {
-    Image.find()
-        .then(images => {
-            res.render('project-views/project-01/admin/upload-image', {
-                title: 'Upload Image',
-                path: '/project/01/admin/upload-image',
-                images: images
-            });
-        })
-        .catch(err => console.err(err))
-}
-
-exports.postUploadImage = (req, res, next) => {
-    console.log({ file: req.file })
-
-    const image = new Image({ ...req.file })
-
-    // const image = new Image({
-    //     name: req.body.name,
-    //     desc: req.body.desc,
-    //     img: {
-    //         data: req.file.buffer,
-    //         contentType: req.file.mimetype
-    //     }
-    // });
-
-    console.log({ image })
-
-    image
-        .save()
-        .then(result => {
-            res.redirect('/project/01/admin/upload-image');
-        })
-        .catch(err => console.error(err))
-}

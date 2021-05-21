@@ -7,14 +7,6 @@ const imageSchema = new Schema({
     mimetype: String,
     buffer: Buffer,
     size: Number
-
-    // name: { type: String, required: false, default: '' },
-    // desc: { type: String, required: false, default: '' },
-    // img:
-    // {
-    //     data: Buffer,
-    //     contentType: String
-    // }
 });
 
 module.exports = mongoose.model('Image', imageSchema)
