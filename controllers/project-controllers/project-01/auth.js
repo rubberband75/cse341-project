@@ -92,7 +92,7 @@ exports.postSignup = (req, res, next) => {
                         to: email,
                         from: 'Chandler Childs <ch@ndlerchilds.net>',
                         subject: "Signup Succeeded!",
-                        html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p><a href="http://localhost:3000/">http://localhost:3000/</a></p>`
+                        html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p><a href="${req.hostname}/project/01">${req.hostname}/project/01</a></p>`
                     })
                 })
                 .catch(err => {
