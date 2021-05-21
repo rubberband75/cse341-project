@@ -88,11 +88,12 @@ exports.postSignup = (req, res, next) => {
                 })
                 .then(result => {
                     res.redirect('/project/01/login');
+                    const url = req.hostname == 'localhost' ? `http://${req.hostname}:${process.env.PORT}/project/01/login` : `https://${req.hostname}/project/01/login`;
                     return transporter.sendMail({
                         to: email,
-                        from: 'Chandler Childs <ch@ndlerchilds.net>',
-                        subject: "Signup Succeeded!",
-                        html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p><a href="${req.hostname}/project/01">${req.hostname}/project/01</a></p>`
+                        from: 'PrintShop^3 <ch@ndlerchilds.net>',
+                        subject: "Welcome to PrintShop^3!",
+                        html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p>Log In Here: <a href="${url}">${url}</a></p>`
                     })
                 })
                 .catch(err => {
