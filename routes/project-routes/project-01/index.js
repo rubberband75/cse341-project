@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const indexController = require('../../../controllers/project-controllers/project-01/index')
+const isAuth = require('../../../middlewares/is-auth');
 
 const User = require('../../../models/project-models/project-01/user');
 
@@ -23,8 +24,8 @@ router.use((req, res, next) => {
 router.use(require('./auth'));
 router.use(require('./shop'));
 
-router.use('/admin', require('./admin'));
-router.use('/account', require('./account'));
+router.use('/admin', isAuth, require('./admin'));
+router.use('/account', isAuth, require('./account'));
 
 router.get('/', indexController.getIndex);
 
