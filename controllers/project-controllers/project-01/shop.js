@@ -21,6 +21,12 @@ exports.getProductById = (req, res, next) => {
 
   Product.findById(productId)
     .then((product) => {
+      if (!product) {
+        let error = new Error("Product Not Found");
+        error.httpStatusCode = 404;
+        return next(error);
+      }
+
       res.render("project-views/project-01/product-detail", {
         title: product.title,
         path: "/project/01/products",
