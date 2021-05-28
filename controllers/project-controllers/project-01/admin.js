@@ -2,7 +2,7 @@ const Product = require("../../../models/project-models/project-01/product");
 const Image = require("../../../models/project-models/project-01/image");
 
 exports.getAdminDashboard = (req, res, next) => {
-  Product.find().then((products) => {
+  Product.find({ userId: req.user._id }).then((products) => {
     res.render("project-views/project-01/admin", {
       title: "Admin",
       path: "/project/01/admin",
@@ -46,7 +46,7 @@ exports.postAddProduct = async (req, res, next) => {
     .then((result) => {
       res.redirect("/project/01/admin");
     })
-    .catch((err) => console.error(err));
+    .catch((err) => next(new Error(err)));
 };
 
 exports.getEditProduct = (req, res, next) => {
@@ -57,7 +57,12 @@ exports.getEditProduct = (req, res, next) => {
         let error = new Error("Product Not Found");
         error.httpStatusCode = 404;
         return next(error);
+      } else if (product.userId.toString() !== req.user._id.toString()) {
+        let error = new Error("Unauthorized Product Edit");
+        error.httpStatusCode = 403;
+        return next(error);
       }
+
       res.render("project-views/project-01/admin/edit-product", {
         title: "Edit Product",
         path: "/project/01/admin",
@@ -79,9 +84,9 @@ exports.postEditProduct = async (req, res, next) => {
     let product = await Product.findById(prodId);
 
     if (product.userId.toString() !== req.user._id.toString()) {
-        let error = new Error("Unauthorized Product Edit");
-        error.httpStatusCode = 403;
-        return next(error);
+      let error = new Error("Unauthorized Product Edit");
+      error.httpStatusCode = 403;
+      return next(error);
     }
 
     product.title = updatedTitle;
