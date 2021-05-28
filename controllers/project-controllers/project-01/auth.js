@@ -55,7 +55,7 @@ exports.postLogin = (req, res, next) => {
                     res.redirect('/project/01/login');
                 });
         })
-        .catch(err => console.log(err));
+        .catch((err) => next(new Error(err)));
 };
 
 exports.postSignup = (req, res, next) => {
@@ -96,18 +96,14 @@ exports.postSignup = (req, res, next) => {
                         html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p>Log In Here: <a href="${url}">${url}</a></p>`
                     })
                 })
-                .catch(err => {
-                    console.log(err);
-                })
+                .catch((err) => next(new Error(err)));
         })
-        .catch(err => {
-            console.log(err);
-        });
+        .catch((err) => next(new Error(err)));
 };
 
 exports.postLogout = (req, res, next) => {
     req.session.destroy(err => {
-        if (err) console.log(err);
+        if (err) next(new Error(err));
         res.redirect('/project/01/');
     });
 };

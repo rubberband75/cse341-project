@@ -100,8 +100,10 @@ exports.postEditProduct = async (req, res, next) => {
     }
 
     await product.save();
+    
   } catch (error) {
     return next(new Error(err));
+
   } finally {
     res.redirect("/project/01/admin");
   }
