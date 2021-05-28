@@ -1,28 +1,34 @@
-const User = require('../models/project-models/project-01/user');
+const User = require("../models/project-models/project-01/user");
 
 module.exports = (req, res, next) => {
-    if (!req.session.user) {
-        res.locals.cartCount = 0;
-        return next();
-    }
-    User.findById(req.session.user._id)
-        .then(user => {
-            if(!user){
-                req.session.destroy(err => {
-                    if (err) console.log(err);
-                    return res.redirect('/project/01/login')
-                });
-            }
+  res.locals.cartCount = 0;
 
-            req.user = user;
+  if (!req.session.user) {
+    return next();
+  }
 
-            // Find the total number of items in the cart
-            res.locals.cartCount = user.cart.items
-                .reduce((count, cartItem) => {
-                    return count + cartItem.quantity
-                }, 0);
+  User.findById(req.session.user._id)
+    .then((user) => {
+      if (!user) {
+        req.session.destroy((err) => {
+          if (err) {
+            console.log(err);
+            return next();
+          }
+          return res.redirect("/project/01/login");
+        });
+      }
 
-            next();
-        })
-        .catch(err => console.error(err));
-}
+      req.user = user;
+
+      // Find the total number of items in the cart
+      res.locals.cartCount = user.cart.items.reduce((count, cartItem) => {
+        return count + cartItem.quantity;
+      }, 0);
+
+      next();
+    })
+    .catch((err) => {
+      next(new Error(err));
+    });
+};
