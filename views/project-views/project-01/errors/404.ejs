@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include ../partials/head.ejs %>
+</head>
+
+<body>
+    <% include ../partials/nav.ejs %>
+
+        <div class="container">
+
+            <h2 class="grey-text">404 Error</h2>
+            <h1>Page Not Found</h1>
+
+            <p>We could not find anthing at <code><%= path %></code></p>
+            <br>
+            <div class="row">
+                <a type="button" class="btn btn-large cyan" onclick="window.history.back();">Go Back</a>
+            </div>
+        </div>
+
+
+        <% include ../partials/footer.ejs %>
+            <script>
+            </script>
+</body>
+
+</html>
