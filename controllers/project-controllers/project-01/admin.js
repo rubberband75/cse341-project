@@ -54,7 +54,9 @@ exports.getEditProduct = (req, res, next) => {
   Product.findById(productId)
     .then((product) => {
       if (!product) {
-        return res.status(404).send(`Product ${productId} not found`);
+        let error = new Error("Product Not Found");
+        error.httpStatusCode = 404;
+        return next(error);
       }
       res.render("project-views/project-01/admin/edit-product", {
         title: "Edit Product",
@@ -64,7 +66,7 @@ exports.getEditProduct = (req, res, next) => {
         errorMessages: req.flash("error"),
       });
     })
-    .catch((err) => console.error(err));
+    .catch((err) => next(new Error(err)));
 };
 
 exports.postEditProduct = async (req, res, next) => {
@@ -75,6 +77,13 @@ exports.postEditProduct = async (req, res, next) => {
 
   try {
     let product = await Product.findById(prodId);
+
+    if (product.userId.toString() !== req.user._id.toString()) {
+        let error = new Error("Unauthorized Product Edit");
+        error.httpStatusCode = 403;
+        return next(error);
+    }
+
     product.title = updatedTitle;
     product.price = updatedPrice;
     product.description = updatedDesc;
@@ -87,7 +96,7 @@ exports.postEditProduct = async (req, res, next) => {
 
     await product.save();
   } catch (error) {
-    console.error(error);
+    return next(new Error(err));
   } finally {
     res.redirect("/project/01/admin");
   }
