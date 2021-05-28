@@ -18,7 +18,7 @@ router.use("/account", isAuth, require("./account"));
 router.use("/error/:errorCode", (req, res, next) => {
   const errorCode = req.params.errorCode;
   let error = new Error(`Error Code Test: ${errorCode}`);
-  error.httpStatusCode = errorCode;
+  error.httpStatusCode = Number(errorCode);
   next(error);
 });
 
@@ -28,14 +28,13 @@ router.use(errorController.get404);
 
 router.use((error, req, res, next) => {
   console.error(error);
-  res
-    .status(error.httpStatusCode ?? 500)
-    .render("project-views/project-01/errors/500", {
-      title: "Account",
-      user: req.user,
-      path: req.originalUrl,
-      errorCode: error.httpStatusCode ?? 500,
-    });
+  let httpStatusCode = error.httpStatusCode ?? 500;
+  res.status(httpStatusCode).render("project-views/project-01/errors", {
+    title: `${httpStatusCode} Error`,
+    user: req.user,
+    path: req.originalUrl,
+    errorCode: Number(httpStatusCode),
+  });
 });
 
 module.exports = router;

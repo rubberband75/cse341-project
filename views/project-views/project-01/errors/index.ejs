@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <% include ../partials/head.ejs %>
+</head>
+
+<body>
+  <% include ../partials/nav.ejs %>
+
+    <div class="container">
+
+      <h2 class="grey-text">
+        <%= errorCode %> Error
+      </h2>
+
+
+      <h1>
+        <% switch (errorCode) { case 500 : %>
+          Our system encoutered an error.
+
+        <% break; case 401 : %>
+          You must log in to view this page.
+
+        <% break; case 403 : %>
+          Forbidden. <small>You do no have permission to view/edit this resource.</small>
+
+        <% break; case 404 : %>
+          Page Not Found.
+
+        <% break; case 418 : %>
+          I am a teapot.
+
+        <% break; default: %>
+          An unknown error Occured.
+
+        <% break; } %>
+      </h1>
+
+      <% if(errorCode>= 500) { %>
+        <p>Please try again later.</p>
+        <% } %>
+          <br>
+          <div class="row">
+            <a type="button" class="btn btn-large cyan" onclick="window.history.back();">Go Back</a>
+          </div>
+    </div>
+
+
+    <% include ../partials/footer.ejs %>
+      <script>
+      </script>
+</body>
+
+</html>

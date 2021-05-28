@@ -7,7 +7,7 @@ exports.getAdminDashboard = (req, res, next) => {
       title: "Admin",
       path: "/project/01/admin",
       products: products,
-      errorMessages: req.flash('error')
+      errorMessages: req.flash("error"),
     });
   });
 };
@@ -17,7 +17,7 @@ exports.getAddProduct = (req, res, next) => {
     title: "Add Product",
     path: "/project/01/admin",
     editing: false,
-    errorMessages: req.flash('error')
+    errorMessages: req.flash("error"),
   });
 };
 
@@ -61,7 +61,7 @@ exports.getEditProduct = (req, res, next) => {
         path: "/project/01/admin",
         product: product,
         editing: true,
-        errorMessages: req.flash('error')
+        errorMessages: req.flash("error"),
       });
     })
     .catch((err) => console.error(err));
@@ -97,10 +97,21 @@ exports.postDeleteProduct = (req, res, next) => {
   const productId = req.params.productId;
   Product.deleteOne({ _id: productId, userId: req.user._id })
     .then((result) => {
-      if (result.deletedCount === 0) {
-        req.flash("error", "Product Not Deleted");
+      if (result.deletedCount !== 0) {
+        req.flash("info", "Product Deleted");
+        return res.redirect("/project/01/admin");
       }
-      return res.redirect("/project/01/admin");
+
+      Product.findOne({ _id: productId }).then((product) => {
+        if (product) {
+          let error = new Error("Unauthorized Product Deletion");
+          error.httpStatusCode = 403;
+          return next(error);
+        } else {
+          req.flash("error", "Product Not Deleted");
+          return res.redirect("/project/01/admin");
+        }
+      });
     })
     .catch((err) => {
       return next(new Error(err));
