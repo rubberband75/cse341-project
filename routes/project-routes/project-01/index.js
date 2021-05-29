@@ -28,7 +28,7 @@ router.use(errorController.get404);
 
 router.use((error, req, res, next) => {
   console.error(error);
-  let httpStatusCode = error.httpStatusCode ?? 500;
+  let httpStatusCode = error.httpStatusCode || 500;
   res.status(httpStatusCode).render("project-views/project-01/errors", {
     title: `${httpStatusCode} Error`,
     user: req.user,
