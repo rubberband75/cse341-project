@@ -1,4 +1,6 @@
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
+
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
@@ -119,4 +121,103 @@ exports.getReset = (req, res, next) => {
     path: "/reset",
     errorMessages: req.flash("error"),
   });
+};
+
+exports.postReset = (req, res, next) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/project/01/reset");
+    }
+    const token = buffer.toString("hex");
+    User.findOne({ email: req.body.email })
+      .then((user) => {
+        if (!user) {
+          req.flash("error", "No account with that email found.");
+          return res.redirect("/project/01/reset");
+        }
+        user.resetToken = token;
+        user.resetTokenExpiration = Date.now() + 3600000;
+        return user.save();
+      })
+      .then((result) => {
+        res.redirect("/project/01/");
+        const url =
+          req.hostname == "localhost"
+            ? `http://localhost:${process.env.PORT}/project/01/reset`
+            : `https://${req.hostname}/project/01/reset`;
+
+        console.log(url);
+        transporter.sendMail({
+          to: req.body.email,
+          from: "PrintShop^3 <ch@ndlerchilds.net>",
+          subject: "PrintShop^3 Password Reset",
+          html: `
+            <p>You requested a password reset</p>
+            <p>Click this <a href="${url}/${token}">link</a> to set a new password.</p>
+          `,
+        });
+      })
+      .catch((err) => next(new Error(err)));
+  });
+};
+
+exports.getNewPassword = (req, res, next) => {
+  const token = req.params.token;
+  User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
+    .then((user) => {
+      if (!user) {
+        let error = new Error("Unauthorized Password Reset Attempt");
+        error.httpStatusCode = 403;
+        return next(error);
+      }
+
+      res.render("project-views/project-01/auth/new-password", {
+        title: "New Password",
+        path: "/new-password",
+        errorMessages: req.flash("error"),
+        userId: user._id.toString(),
+        resetToken: token,
+      });
+    })
+    .catch((err) => next(new Error(err)));
+};
+
+exports.postNewPassword = (req, res, next) => {
+  const newPassword = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
+  const userId = req.body.userId;
+  const resetToken = req.body.resetToken;
+  let resetUser;
+
+  if (newPassword !== confirmPassword) {
+    req.flash("error", "Passwords do not match");
+    return res.redirect(`/project/01/reset/${resetToken}`);
+  }
+
+  User.findOne({
+    resetToken: resetToken,
+    resetTokenExpiration: { $gt: Date.now() },
+    _id: userId,
+  })
+    .then((user) => {
+      if (!user) {
+        let error = new Error("Unauthorized Password Reset Attempt");
+        error.httpStatusCode = 403;
+        return next(error);
+      }
+
+      resetUser = user;
+      return bcrypt.hash(newPassword, 12);
+    })
+    .then((hashedPassword) => {
+      resetUser.password = hashedPassword;
+      resetUser.resetToken = undefined;
+      resetUser.resetTokenExpiration = undefined;
+      return resetUser.save();
+    })
+    .then((result) => {
+      res.redirect("/project/01/login");
+    })
+    .catch((err) => next(new Error(err)));
 };
