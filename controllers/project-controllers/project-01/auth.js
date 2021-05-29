@@ -98,8 +98,8 @@ exports.postSignup = (req, res, next) => {
               : `https://${req.hostname}/project/01/login`;
           return transporter.sendMail({
             to: email,
-            from: "PrintShop^3 <ch@ndlerchilds.net>",
-            subject: "Welcome to PrintShop^3",
+            from: "PrintShop³ <ch@ndlerchilds.net>",
+            subject: "Welcome to PrintShop³",
             html: `<h1>You successfully signed up!</h1><p>Welcome ${email}!</p><p>Log In Here: <a href="${url}">${url}</a></p>`,
           });
         })
@@ -150,8 +150,8 @@ exports.postReset = (req, res, next) => {
         console.log(url);
         transporter.sendMail({
           to: req.body.email,
-          from: "PrintShop^3 <ch@ndlerchilds.net>",
-          subject: "PrintShop^3 Password Reset",
+          from: "PrintShop³ <ch@ndlerchilds.net>",
+          subject: "PrintShop³ Password Reset",
           html: `
             <p>You requested a password reset</p>
             <p>Click this <a href="${url}/${token}">link</a> to set a new password.</p>
