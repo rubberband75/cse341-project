@@ -79,6 +79,14 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
+  if (res.locals.hasValidationErrors) {
+    return res.status(422).render("project-views/project-01/auth/signup", {
+      title: "Sign Up",
+      path: "/project/01/signup",
+      errorMessages: req.flash("error"),
+    });
+  }
+
   if (password !== confirmPassword) {
     req.flash("error", "Passwords do not match");
   }

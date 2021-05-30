@@ -33,6 +33,14 @@ router.post(
       .trim()
       .isLength({ min: 8 })
       .isAlphanumeric(),
+    body("confirmPassword")
+      .trim()
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Passwords have to match!");
+        }
+        return true;
+      }),
   ],
   validationMessageInjector,
   authController.postSignup
