@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
+const { validationResult } = require("express-validator/check");
+
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 
@@ -19,6 +21,7 @@ exports.getLogin = (req, res, next) => {
     title: "Login",
     path: "/project/01/login",
     errorMessages: req.flash("error"),
+    validationErrors: [],
   });
 };
 
@@ -33,6 +36,19 @@ exports.getSignup = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
+
+  if (res.locals.hasValidationErrors) {
+    return res.status(422).render("project-views/project-01/auth/login", {
+      title: "Login",
+      path: "/project/01/login",
+      errorMessages: req.flash("error"),
+      oldInput: {
+        email: email,
+        password: password,
+      },
+    });
+  }
+
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
