@@ -61,7 +61,29 @@ router.post(
   authController.postReset
 );
 
-router.get("/reset/:token", authController.getNewPassword);
-router.post("/new-password", authController.postNewPassword);
+router.get(
+  "/reset/:token",
+  validationMessageInjector,
+  authController.getNewPassword
+);
+router.post(
+  "/new-password",
+  [
+    body("password", "Password must be at least 8 characters.")
+      .trim()
+      .isLength({ min: 8 })
+      .isAlphanumeric(),
+    body("confirmPassword")
+      .trim()
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error("Passwords have to match!");
+        }
+        return true;
+      }),
+  ],
+  validationMessageInjector,
+  authController.postNewPassword
+);
 
 module.exports = router;

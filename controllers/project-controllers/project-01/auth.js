@@ -218,6 +218,18 @@ exports.postNewPassword = (req, res, next) => {
   const resetToken = req.body.resetToken;
   let resetUser;
 
+  if (res.locals.hasValidationErrors) {
+    return res
+      .status(422)
+      .render("project-views/project-01/auth/new-password", {
+        title: "New Password",
+        path: "/new-password",
+        errorMessages: req.flash("error"),
+        userId: userId,
+        resetToken: resetToken,
+      });
+  }
+
   if (newPassword !== confirmPassword) {
     req.flash("error", "Passwords do not match");
     return res.redirect(`/project/01/reset/${resetToken}`);
