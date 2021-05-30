@@ -144,6 +144,14 @@ exports.getReset = (req, res, next) => {
 };
 
 exports.postReset = (req, res, next) => {
+  if (res.locals.hasValidationErrors) {
+    return res.status(422).render("project-views/project-01/auth/reset", {
+      title: "Reset Password",
+      path: "/reset",
+      errorMessages: req.flash("error"),
+    });
+  }
+
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       console.log(err);

@@ -48,8 +48,19 @@ router.post(
 
 router.post("/logout", authController.postLogout);
 
-router.get("/reset", authController.getReset);
-router.post("/reset", authController.postReset);
+router.get("/reset", validationMessageInjector, authController.getReset);
+router.post(
+  "/reset",
+  [
+    body("email")
+      .normalizeEmail()
+      .isEmail()
+      .withMessage("Please enter a valid email address."),
+  ],
+  validationMessageInjector,
+  authController.postReset
+);
+
 router.get("/reset/:token", authController.getNewPassword);
 router.post("/new-password", authController.postNewPassword);
 
