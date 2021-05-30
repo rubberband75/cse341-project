@@ -21,8 +21,22 @@ router.post(
   authController.postLogin
 );
 
-router.get("/signup", authController.getSignup);
-router.post("/signup", authController.postSignup);
+router.get("/signup", validationMessageInjector, authController.getSignup);
+router.post(
+  "/signup",
+  [
+    body("email")
+      .normalizeEmail()
+      .isEmail()
+      .withMessage("Please enter a valid email address."),
+    body("password", "Password must be at least 8 characters.")
+      .trim()
+      .isLength({ min: 8 })
+      .isAlphanumeric(),
+  ],
+  validationMessageInjector,
+  authController.postSignup
+);
 
 router.post("/logout", authController.postLogout);
 

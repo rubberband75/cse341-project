@@ -4,8 +4,10 @@ const errorController = require("../../../controllers/project-controllers/projec
 
 const isAuth = require("../../../middlewares/is-auth");
 const loadUser = require("../../../middlewares/load-user");
+const oldInputInjector = require("../../../middlewares/old-input-injector");
 
 router.use(loadUser);
+router.use(oldInputInjector);
 
 router.use(require("./auth"));
 router.use(require("./shop"));

@@ -42,10 +42,6 @@ exports.postLogin = (req, res, next) => {
       title: "Login",
       path: "/project/01/login",
       errorMessages: req.flash("error"),
-      oldInput: {
-        email: email,
-        password: password,
-      },
     });
   }
 
