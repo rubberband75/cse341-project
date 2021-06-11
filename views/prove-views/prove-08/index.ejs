@@ -12,10 +12,131 @@
                 <h1>
                     <%= title %>
                 </h1>
-                <p>Pagination</p>
             </div>
         </div>
         <div class="container">
+
+            <div class="row" style="height: 100%;">
+
+                <!-- Search / Filter Column -->
+                <div class="col-md-3">
+                    <div class="col-sm-12">
+                        <h3>Search</h3>
+                        <form target="/prove/08">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for..." id="searchQuery"
+                                    name="searchQuery" value="<%= currentSearchQuery %>">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">Go!</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-12">
+                        <h3>Tags</h3>
+                        <div style="max-height: 75vh; overflow-y: auto; margin-bottom: 1em;">
+                            <div class="list-group">
+                                <% tags.forEach(tag=> { %>
+                                    <a href="?tag=<%= tag %>"
+                                        class="list-group-item <%= currentTag === tag ? 'active' : ''%>">
+                                        <%= tag %>
+                                    </a>
+                                    <% }); %>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Item Column -->
+                <div class="col-md-9">
+                    <div class="col">
+                        <nav>
+                            <ul class="pager">
+                                <li class="previous <%= currentPage === 1 ? 'disabled' : ''%>">
+                                    <a <% if(currentPage> 1) { %>
+                                        href="<%= '?page=' + (currentPage - 1) + filterParams %>"
+                                            <%}%> >Previous</a>
+                                </li>
+                                <li class="next <%= currentPage < pageCount ? '' : 'disabled'%>">
+                                    <a <% if(currentPage < pageCount) { %>
+                                        href="<%= '?page=' + (currentPage + 1) + filterParams %>"
+                                            <%}%> >Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="item-list" style="display: flex; flex-wrap: wrap;">
+                        <% items.forEach(item=> { %>
+                            <div class="col-sm-6 col-md-4" style="flex-shrink: 0 !important;">
+                                <div class="thumbnail">
+                                    <img src="<%= item.imageUrl %>" alt="<%= item.name %>" title="<%= item.name %>">
+                                    <div class="caption">
+                                        <h3>
+                                            <%= item.name %>
+                                        </h3>
+                                        <h4>
+                                            <%= item.price %>
+                                        </h4>
+                                        <p>
+                                            <%= item.description %>
+                                        </p>
+
+                                        <p>
+                                            <% item.tags.forEach(tag=> { %>
+                                                <a href="?tag=<%= tag %>" class="btn btn-default btn-sm" role="button"
+                                                    style="border-radius: 2em;">
+                                                    <%= tag %>
+                                                </a>
+                                                <% }); %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav>
+                        <ul class="pagination">
+
+                            <!-- First Page -->
+                            <li class="<%= currentPage === 1 ? 'disabled' : ''%>">
+                                <a <% if(currentPage> 1) { %>
+                                    href="<%= '?page=1' + filterParams %>"
+                                        <%}%> aria-label="First">
+                                            <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <% for(let i=0, pageBtn=Math.max(1, Math.min(currentPage - 2, pageCount - 4)); i < 5; i ++,
+                                pageBtn++) { %>
+
+                                <% if(pageBtn <=pageCount) { %>
+                                    <li class="next <%= pageBtn === currentPage ? 'active' : ''%>">
+                                        <a href="<%= '?page=' + pageBtn + filterParams %>">
+                                            <%= pageBtn %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+
+
+                                            <!-- Last Page -->
+                                            <li class="next <%= currentPage < pageCount ? '' : 'disabled'%>">
+                                                <a <% if(currentPage < pageCount) { %>
+                                                    href="<%= '?page=' + pageCount + filterParams %>"
+                                                        <%}%> aria-label="Last">
+                                                            <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
 
 
         </div>

@@ -1,19 +1,19 @@
 const axios = require("axios");
 
-const ITEMS_PER_PAGE = 10; // Limit of 10 items per page.
+const ITEMS_PER_PAGE = 3; // Limit of 10 items per page.
 
 exports.getIndex = async (req, res, next) => {
   const tag = req.query.tag;
-  const query = req.query.query;
+  const searchQuery = req.query.searchQuery;
   const page = +req.query.page || 1;
 
-  // User Axios to load all items
+  // Use Axios to load all items
   let items = [];
   try {
     let response = await axios.get(
       "https://byui-cse.github.io/cse341-course/lesson03/items.json"
     );
-    const items = response.data;
+    items = response.data;
   } catch (error) {
     console.error(error);
     throw new Error("Error loading items.");
@@ -27,15 +27,15 @@ exports.getIndex = async (req, res, next) => {
     return tags;
   }, new Set());
 
-  // Filter items first by Tag, then by item.name containing the query string.
+  // Filter items first by Tag, then by item.name containing the searchQuery string.
   const filteredItems = items
     .filter((item) => {
       if (!tag) return true; // If no tag in query params, return all items.
       return item.tags.includes(tag);
     })
     .filter((item) => {
-      if (!query) return true; // If no query in query params, return all items.
-      return item.name.toLowerCase().includes(query.toLowerCase());
+      if (!searchQuery) return true; // If no searchQuery in query params, return all items.
+      return item.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
 
   // Get item and Page Count to help with pagination
@@ -55,5 +55,11 @@ exports.getIndex = async (req, res, next) => {
     itemCount: itemCount,
     pageCount: pageCount,
     tags: [...tags].sort(),
+    currentTag: tag,
+    currentSearchQuery: searchQuery,
+    currentPage: page,
+    filterParams:
+      (tag ? "&tag=" + tag : "") +
+      (searchQuery ? "&searchQuery=" + searchQuery : ""),
   });
 };
