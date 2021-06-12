@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const ITEMS_PER_PAGE = 3; // Limit of 10 items per page.
+const ITEMS_PER_PAGE = 10; // Limit of 10 items per page.
 
 exports.getIndex = async (req, res, next) => {
   const tag = req.query.tag;
