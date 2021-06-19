@@ -3,6 +3,11 @@
 
 <head>
     <% include ../../partials/header.ejs %>
+        <style>
+            .pokemon {
+                text-transform: capitalize;
+            }
+        </style>
 </head>
 
 <body>
@@ -19,13 +24,16 @@
             <h1>Pokemon</h1>
 
             <ul class="list-group">
-                <li v-for="(item, index) in pokemon" class="list-group-item" style="text-transform: capitalize;">{{item.name}}</li>
+                <li v-for="(item, index) in pokemon" class="list-group-item pokemon">{{item.name}}</li>
             </ul>
 
             <nav>
                 <ul class="pager">
-                    <li><a @click="getPrev" class="btn" v-bind:disabled="!prevLink">Previous</a></li>
-                    <li><a @click="getNext" class="btn" v-bind:disabled="!nextLink">Next</a></li>
+                    <li class="previous"><a @click="getFirst()" class="btn" v-bind:disabled="!prevLink">First</a></li>
+                    <li><a @click="getPrev()" class="btn" v-bind:disabled="!prevLink">Previous</a></li>
+                    <li>Page {{page}} of {{pageCount}}</li>
+                    <li><a @click="getNext()" class="btn" v-bind:disabled="!nextLink">Next</a></li>
+                    <li class="next"><a @click="getLast()" class="btn" v-bind:disabled="!nextLink">Last</a></li>
                 </ul>
             </nav>
         </div>
@@ -36,26 +44,61 @@
             var app = new Vue({
                 el: '#app',
                 data: {
+                    limit: 10,
+                    offset: 0,
                     pokemon: [],
+                    count: 0,
                     nextLink: null,
-                    prevLink: null
+                    prevLink: null,
                 },
                 mounted: function () {
-                    this.getPokemon('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10')
+                    this.getFirst()
                 },
                 methods: {
+                    getAPIEndpoint(offset = 0) {
+                        return `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${this.limit}`;
+                    },
                     async getPokemon(url) {
                         if (!url) return;
+
+                        // Ensure that the limit is always the same
+                        url = new URL(url);
+                        let params = new URLSearchParams(url.search);
+                        params.set('limit', this.limit);
+                        url.search = params;
+
+                        // Fetch API response
                         let response = await axios.get(url);
+
+                        // Set local data from API response
                         this.pokemon = response.data.results;
                         this.nextLink = response.data.next;
                         this.prevLink = response.data.previous;
+                        this.count = response.data.count;
+
+                        // Set Current Offset
+                        this.offset = params.get('offset')
+                    },
+                    getFirst() {
+                        this.getPokemon(this.getAPIEndpoint())
                     },
                     getNext() {
                         this.getPokemon(this.nextLink)
                     },
                     getPrev() {
                         this.getPokemon(this.prevLink)
+                    },
+                    getLast() {
+                        let offset = (this.pageCount - 1) * this.limit;
+                        this.getPokemon(this.getAPIEndpoint(offset))
+                    }
+                },
+                computed: {
+                    page: function () {
+                        return this.offset / this.limit + 1
+                    },
+                    pageCount: function () {
+                        return Math.ceil(this.count / this.limit)
                     }
                 }
             })
