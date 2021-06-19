@@ -16,19 +16,19 @@ exports.getClientSideRender = async (req, res, next) => {
 };
 
 exports.getServerSideRender = async (req, res, next) => {
-  // Read Query Parameters
-  const offset = req.query.offset || 0;
-  const limit = req.query.limit || 10;
+  const page = +req.query.page || 1;
 
   // Fetch Names
-  const results = await Pokemon.getNames(offset, limit);
+  const results = await Pokemon.getNames(page);
 
   // Render Results
   res.render("prove-views/prove-09/backend", {
     title: "Prove 09",
     path: "/prove/09",
+    page: page,
     pokemon: results.pokemon,
-    prevParams: results.prevParams,
-    nextParams: results.nextParams,
+    pageCount: results.pageCount,
+    nextPage: results.nextPage,
+    prevPage: results.prevPage,
   });
 };

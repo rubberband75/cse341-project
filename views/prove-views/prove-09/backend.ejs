@@ -11,7 +11,7 @@
             <div class="container">
                 <h1>
                     <%= title %>
-                    <p style="margin: 0 auto">Server Side Rendered</p>
+                        <p style="margin: 0 auto">Server Side Rendered</p>
                 </h1>
             </div>
         </div>
@@ -19,15 +19,38 @@
             <h1>Pokemon</h1>
 
             <ul class="list-group">
-                <% pokemon.forEach(item => { %>
-                    <li class="list-group-item" style="text-transform: capitalize;"> <%= item.name %> </li>
-                <% }); %>
+                <% pokemon.forEach(item=> { %>
+                    <li class="list-group-item" style="text-transform: capitalize;">
+                        <%= item.name %>
+                    </li>
+                    <% }); %>
             </ul>
 
             <nav>
                 <ul class="pager">
-                    <li><a href="?<%= prevParams %>" class="btn" <% if(!prevParams) { %> disabled="disabled" <% }; %> >Previous</a></li>
-                    <li><a href="?<%= nextParams %>" class="btn" <% if(!nextParams) { %> disabled="disabled" <% }; %> >Next</a></li>
+                    <li class="previous">
+                        <a href="?page=1" class="btn" <% if(!prevPage) { %> disabled="disabled" <% }; %>
+                                >First</a>
+                    </li>
+
+                    <li>
+                        <a href="?page=<%= prevPage %>" class="btn" <% if(!prevPage) { %> disabled="disabled" <% }; %>
+                                >Previous</a>
+                    </li>
+
+                    <li> Page <%= page %> of <%= pageCount %>
+                    </li>
+
+                    <li>
+                        <a href="?page=<%= nextPage %>" class="btn" <% if(!nextPage) { %> disabled="disabled" <% }; %>
+                                >Next</a>
+                    </li>
+
+                    <li class="next">
+                        <a href="?page=<%= pageCount %>" class="btn" <% if(!nextPage) { %>
+                            disabled="disabled" <% }; %>
+                                >Last</a>
+                    </li>
                 </ul>
             </nav>
         </div>
