@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../partials/header.ejs %>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</head>
+
+<body>
+    <% include ../../partials/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                        <p style="margin: 0 auto">Client Side Rendered</p>
+                </h1>
+            </div>
+        </div>
+        <div class="container" id="app">
+            <h1>Pokemon</h1>
+
+            <ul class="list-group">
+                <li v-for="(item, index) in pokemon" class="list-group-item">{{item.name}}</li>
+            </ul>
+
+            <nav>
+                <ul class="pager">
+                    <li><a @click="getPrev" class="btn" v-bind:disabled="!prevLink">Previous</a></li>
+                    <li><a @click="getNext" class="btn" v-bind:disabled="!nextLink">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    pokemon: [],
+                    nextLink: null,
+                    prevLink: null
+                },
+                mounted: function () {
+                    this.getPokemon('https://pokeapi.co/api/v2/pokemon?offset=0&limit=10')
+                },
+                methods: {
+                    async getPokemon(url) {
+                        if (!url) return;
+                        let response = await axios.get(url);
+                        this.pokemon = response.data.results;
+                        this.nextLink = response.data.next;
+                        this.prevLink = response.data.previous;
+
+                        console.log(response.data)
+                    },
+                    getNext() {
+                        this.getPokemon(this.nextLink)
+                    },
+                    getPrev() {
+                        this.getPokemon(this.prevLink)
+                    }
+                }
+            })
+        </script>
+</body>
+
+</html>
