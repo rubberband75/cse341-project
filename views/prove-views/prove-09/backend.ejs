@@ -16,6 +16,20 @@
             </div>
         </div>
         <div class="container">
+            <h1>Pokemon</h1>
+
+            <ul class="list-group">
+                <% pokemon.forEach(item => { %>
+                    <li class="list-group-item"> <%= item.name %> </li>
+                <% }); %>
+            </ul>
+
+            <nav>
+                <ul class="pager">
+                    <li><a href="?<%= prevParams %>" class="btn" <% if(!prevParams) { %> disabled="disabled" <% }; %> >Previous</a></li>
+                    <li><a href="?<%= nextParams %>" class="btn" <% if(!nextParams) { %> disabled="disabled" <% }; %> >Next</a></li>
+                </ul>
+            </nav>
         </div>
 </body>
 

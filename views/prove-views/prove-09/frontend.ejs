@@ -50,8 +50,6 @@
                         this.pokemon = response.data.results;
                         this.nextLink = response.data.next;
                         this.prevLink = response.data.previous;
-
-                        console.log(response.data)
                     },
                     getNext() {
                         this.getPokemon(this.nextLink)
