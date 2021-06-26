@@ -1,0 +1,28 @@
+{
+  "avengers": [
+    {
+      "name": "Tony Stark",
+      "powers": "Super-Genius Intelligence, Master Tactician"
+    },
+    {
+      "name": "Steve Rogers",
+      "powers": "Artificially Enhanced Physiology, Peak Human Strength"
+    },
+    {
+      "name": "Thor Odinson",
+      "powers": "Superhuman Strength, Flight"
+    },
+    {
+      "name": "Bruce Banner",
+      "powers": "Super-Genius Intelligence, Transformation"
+    },
+    {
+      "name": "Natasha Romanova",
+      "powers": "Master Assassin, Peak Human Endurance"
+    },
+    {
+      "name": "Clint Barton",
+      "powers": "Master Archer, Peak Human Sight"
+    }
+  ]
+}
