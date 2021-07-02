@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <% include ../../partials/header.ejs %>
+</head>
+
+<body>
+    <% include ../../partials/nav.ejs %>
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1>
+                    <%= title %>
+                </h1>
+            </div>
+        </div>
+        <div class="container" id="app">
+            <h1>Avengers</h1>
+
+            <!-- Display Avengers -->
+            <ul class="list-group">
+                <li v-for="avenger in avengers" class="list-group-item">
+                    <p><b>{{avenger.name}}</b></p>
+                    <p><i>Powers:</i></p>
+                    <ul>
+                        <li v-for="power in avenger.powers.split(',')">{{power}}</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                Submit New Avenger
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Submit New Avenger</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div v-if="errorMessage" class="alert alert-danger" role="alert">
+                                <b>Error: </b> {{ errorMessage }}
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nameInput">Name</label>
+                                <input v-model="submission.name" type="text" class="form-control" id="nameInput"
+                                    placeholder="ex: Loki Laufeyson">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="powersInput">Powers
+                                    <small><i>Add a comma between separate powers</i></small></label>
+                                <input v-model="submission.powers" type="text" class="form-control" id="powersInput"
+                                    placeholder="ex: Illusion Projection, Duplicate Casting ...">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                @click="resetForm()">Close</button>
+                            <button type="button" class="btn btn-primary" @click="submitAvenger">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="/js/socket.io.min.js"></script>
+
+        <script>
+            var socket = io();
+
+
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    avengers: [],
+                    submission: {
+                        name: "",
+                        powers: ""
+                    },
+                    loading: false,
+                    errorMessage: null,
+                },
+                created: function () {
+
+                    // Initialize Socket Listeners
+                    socket.on('new-connection', (connection) => {
+                        console.log(`New connection to server: ${connection.id}`)
+                    });
+
+                    socket.on('avenger assembled', (avenger) => {
+                        console.log('New Avenger: ', avenger);
+                        this.avengers.push(avenger)
+                    });
+                },
+                mounted: function () {
+                    this.loadAvengers()
+                },
+                methods: {
+                    async loadAvengers() {
+                        this.loading = true;
+                        let response = await axios.get('/prove/10/fetchAll');
+                        this.avengers = response.data.avengers;
+
+                        this.resetForm();
+                        this.loading = false;
+                    },
+                    async submitAvenger() {
+                        this.errorMessage = null;
+                        try {
+                            let response = await axios.post('/prove/10/insert', {
+                                "_csrf": "<%= csrfToken %>",
+                                ...this.submission,
+                            })
+
+                            // Emit new avenger after successful save
+                            socket.emit('avenger assembled', this.submission)
+
+                            await this.loadAvengers();
+                            $('#myModal').modal('hide')
+
+
+                        } catch (error) {
+                            this.errorMessage = error.response.data.errorMessage;
+                            console.error(this.errorMessage)
+                        }
+                    },
+                    resetForm() {
+                        this.errorMessage = null;
+                        this.submission = {
+                            name: "",
+                            powers: ""
+                        }
+                    }
+                },
+            })
+        </script>
+</body>
+
+</html>

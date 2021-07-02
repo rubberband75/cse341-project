@@ -5,6 +5,7 @@ router.use('/02', require('./prove-02-routes'));
 router.use('/08', require('./prove-08-routes'));
 router.use('/09', require('./prove-09-routes'));
 router.use('/10', require('./prove-10-routes'));
+router.use('/11', require('./prove-11-routes'));
 
 router.get('/', (req, res, next) => {
     res.render('index', { title: 'Prove Assignments', path: '/prove' });
