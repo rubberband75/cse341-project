@@ -7,7 +7,8 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
-const { Server } = require("socket.io")
+const { Server } = require("socket.io");
+const socketListeners = require('./sockets')
 
 require('dotenv').config({ path: __dirname + '/.env' })
 
@@ -83,23 +84,12 @@ mongoose
     const server = app.listen(PORT, () => {
       console.log(` * Listening on http://localhost:${PORT}`)
     });
+
+    // Initialize socket.io
     const io = new Server(server)
 
-    io.on('connection', (socket) => {
-      console.log(` * Socket Connected: ${socket.id}`)
-      io.emit('new-connection', { id: socket.id })
-
-      socket.on('disconnect', () => {
-        console.log(` * Socket Disconnected: ${socket.id}`)
-        io.emit('closed-connection', { id: socket.id })
-      });
-
-      socket.on('avenger assembled', (avenger) => {
-        console.log('New Avenger: ' + avenger);
-        socket.broadcast.emit('avenger assembled', avenger);
-      });
-
-    });
+    // Connect socket listeners
+    socketListeners(io)
 
   })
   .catch(err => {
